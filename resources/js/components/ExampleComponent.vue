@@ -85,31 +85,31 @@ import CryptoJS from 'crypto-js';
         },
          methods: {
      async consultarAPI() {
-      try {
-        // URL del endpoint de la API
-        const apiUrl = 'https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania';
+          try {
+            // URL del endpoint de la API
+            const apiUrl = 'https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania';
 
-        // Datos de la solicitud POST
-        const requestData = {
-          idDespacho: 15, // Parámetro en la URL
-        };
+            // Datos de la solicitud POST
+            const requestData = {
+              idDespacho: 15, // Parámetro en la URL
+            };
 
-        // Encabezados de la solicitud
-        const headers = {
-          'Content-Type': 'application/json',
-          'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=',
-        };
+            // Encabezados de la solicitud
+            const headers = {
+              'Content-Type': 'application/json',
+              'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=',
+            };
 
-        // Realiza la solicitud POST
-        const response = await axios.post(apiUrl, requestData, { headers });
+            // Realiza la solicitud POST
+            const response = await axios.post(apiUrl, null, { params: requestData, headers });
 
-        // Muestra la respuesta en console.log
-        console.log('Respuesta de la API:', response.data);
-      } catch (error) {
-        // Maneja cualquier error que pueda ocurrir
-        console.error('Error en la solicitud:', error);
-      }
-    },
+            // Muestra la respuesta en console.log
+            console.log('Respuesta de la API:', response.data);
+          } catch (error) {
+            // Maneja cualquier error que pueda ocurrir
+            console.error('Error en la solicitud:', error);
+          }
+        },
     encryptJSON2(jsonData, encryptionKey) {
       const jsonString = JSON.stringify(jsonData);
 
