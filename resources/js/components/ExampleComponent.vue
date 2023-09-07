@@ -84,29 +84,24 @@ import CryptoJS from 'crypto-js';
             console.log('Component Consultar.')
         },
          methods: {
-     async consultarAPI() {
-  try {
-    const apiUrl = 'https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania';
+    async consultarAPI() {
+          try {
+            const idDespacho = 15; 
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}`;
 
-    const requestData = {
-      idDespacho: 15, 
-    };
+            const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Basic ' + btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'), 
+              'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
+            };
 
-    const base64Credentials = btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'); // Reemplaza con tus credenciales
+            const response = await axios.post(apiUrl, {}, { headers });
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${base64Credentials}`,
-      'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
-    };
-
-    const response = await axios.post(apiUrl, requestData, { headers });
-
-    console.log('Respuesta de la API:', response.data);
-  } catch (error) {
-    console.error('Error en la solicitud:', error);
-  }
-},
+            console.log('Respuesta de la API:', response.data);
+          } catch (error) {
+            console.error('Error en la solicitud:', error);
+          }
+        },
     encryptJSON2(jsonData, encryptionKey) {
       const jsonString = JSON.stringify(jsonData);
 
