@@ -99,6 +99,7 @@ import CryptoJS from 'crypto-js';
 
             console.log('Respuesta de la API:', response.data);
           } catch (error) {
+            
             console.error('Error en la solicitud:', error);
           }
         },
@@ -132,15 +133,21 @@ import CryptoJS from 'crypto-js';
       this.showModal = true;
       this.successMessage = "Respuesta correcta";
 
+       const headers = {
+              'Content-Type': 'application/json',
+              'Authorization': 'Basic ' + btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'), 
+              'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
+            };
+            
       const jsonData = {
            "clienteUnico":{
               "idPais":1,
               "idCanal":1,
-              "idSucursal":100,
-              "folio":66996
+              "idSucursal":115,
+              "folio":1969
            },
-           "numeroTelefono":"4878725518",
-           "idCampana":172,
+           "numeroTelefono":"559840744",
+           "idCampana":1738,
            "numeroEmpleado":"800046",
            "token":"Cobranza2022",
            "idOrigen":2,
@@ -155,22 +162,22 @@ import CryptoJS from 'crypto-js';
   
         console.log('JSON cifrado:', encryptedData);
       console.log("Hola envio");
-      // axios
-      //   .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${this.folio}`)
-      //   .then((response) => {
-      //     if (response.data === "correcto") {
-      //       this.showModal = true;
-      //       this.successMessage = "Respuesta correcta";
-      //       this.startCountdown();
-      //     } else {
-      //       this.showModal = true;
-      //       this.errorMessage = "Error en la respuesta";
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     this.showModal = true;
-      //     this.errorMessage = "Error en la solicitud";
-      //   });
+      axios
+        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${encryptedData}`)
+        .then((response) => {
+          if (response.data === "correcto") {
+            this.showModal = true;
+            this.successMessage = "Respuesta correcta";
+            this.startCountdown();
+          } else {
+            this.showModal = true;
+            this.errorMessage = "Error en la respuesta";
+          }
+        })
+        .catch((error) => {
+          this.showModal = true;
+          this.errorMessage = "Error en la solicitud";
+        });
     },
     startCountdown() {
       const timer = setInterval(() => {
