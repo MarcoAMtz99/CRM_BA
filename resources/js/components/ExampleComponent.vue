@@ -138,7 +138,7 @@ import CryptoJS from 'crypto-js';
               'Authorization': 'Basic ' + btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'), 
               'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
             };
-            
+
       const jsonData = {
            "clienteUnico":{
               "idPais":1,
@@ -163,7 +163,7 @@ import CryptoJS from 'crypto-js';
         console.log('JSON cifrado:', encryptedData);
       console.log("Hola envio");
       axios
-        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${encryptedData}`)
+        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${this.encryptedData}`)
         .then((response) => {
           if (response.data === "correcto") {
             this.showModal = true;
