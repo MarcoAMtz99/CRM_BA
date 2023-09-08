@@ -110,7 +110,7 @@ export default {
               "idPais":1,
               "idCanal":1,
               "idSucursal":100,
-              "folio":66996
+              "folio":this.folio
            },
            "numeroTelefono":"4878725518",
            "idCampana":172,
@@ -126,24 +126,23 @@ export default {
 
          const encryptedData = this.encryptJSON2(jsonData, '192cY7vUQbodWq4q');
   
-        console.log('JSON cifrado:', encryptedData);
-      console.log("Hola envio");
-      // axios
-      //   .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${this.folio}`)
-      //   .then((response) => {
-      //     if (response.data === "correcto") {
-      //       this.showModal = true;
-      //       this.successMessage = "Respuesta correcta";
-      //       this.startCountdown();
-      //     } else {
-      //       this.showModal = true;
-      //       this.errorMessage = "Error en la respuesta";
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     this.showModal = true;
-      //     this.errorMessage = "Error en la solicitud";
-      //   });
+
+      axios
+        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${this.folio}`)
+        .then((response) => {
+          if (response.data === "correcto") {
+            this.showModal = true;
+            this.successMessage = "Respuesta correcta";
+            this.startCountdown();
+          } else {
+            this.showModal = true;
+            this.errorMessage = "Error en la respuesta";
+          }
+        })
+        .catch((error) => {
+          this.showModal = true;
+          this.errorMessage = "Error en la solicitud";
+        });
     },
     startCountdown() {
       const timer = setInterval(() => {

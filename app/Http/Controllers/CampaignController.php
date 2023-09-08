@@ -17,4 +17,9 @@ class CampaignController extends Controller
         return view('admin.campaña');
     }
 
+    public function getCampaign(Request $request)
+    {
+        return view('admin.detalle',['id'=>$request->id]);
+    }
+
 }
