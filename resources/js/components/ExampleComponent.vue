@@ -163,7 +163,7 @@ import CryptoJS from 'crypto-js';
         console.log('JSON cifrado:', encryptedData);
       console.log("Hola envio");
       axios
-        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${this.encryptedData}`)
+        .get('https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/'+encryptedData)
         .then((response) => {
           if (response.data === "correcto") {
             this.showModal = true;
