@@ -57,7 +57,7 @@
          <p v-if="successMessage">Respuesta correcta</p>
             <p v-if="errorMessage">{{ errorMessage }}</p>
                  <p v-if="countdown > 0">{{ countdown }} segundos restantes.</p>
-                 <a href="{{encrypt}}" target="_blank">Mostrar la direccion</a>
+                 <a :href="encrypt" target="_blank">Mostrar la direccion</a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
