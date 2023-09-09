@@ -57,6 +57,7 @@
          <p v-if="successMessage">Respuesta correcta</p>
             <p v-if="errorMessage">{{ errorMessage }}</p>
                  <p v-if="countdown > 0">{{ countdown }} segundos restantes.</p>
+                 <a href="{{encrypt}}" target="_blank">Mostrar la direccion</a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -78,6 +79,8 @@ import CryptoJS from 'crypto-js';
           successMessage: "",
           errorMessage: "",
           countdown: 300, // 5 minutos en segundos
+          url:"https://www.gestioncobranzabaz.com.mx/regional/front-gestiones/index.html#/front-cobranza/credimax/",
+          encrypt:'',
         };
       },
         mounted() {
@@ -118,7 +121,6 @@ import CryptoJS from 'crypto-js';
         keySize: 256 / 8, 
       });
 
-      // Combina el IV con el texto cifrado y conviértelo a Base64 seguro
       const combined = iv.concat(ciphertext.ciphertext);
       const base64Result = CryptoJS.enc.Base64.stringify(combined);
 
@@ -160,24 +162,25 @@ import CryptoJS from 'crypto-js';
 
          const encryptedData = this.encryptJSON2(jsonData, '192cY7vUQbodWq4q');
   
-        console.log('JSON cifrado:', encryptedData);
-      console.log("Hola envio");
-      axios
-        .get('https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/'+encryptedData)
-        .then((response) => {
-          if (response.data === "correcto") {
-            this.showModal = true;
-            this.successMessage = "Respuesta correcta";
-            this.startCountdown();
-          } else {
-            this.showModal = true;
-            this.errorMessage = "Error en la respuesta";
-          }
-        })
-        .catch((error) => {
-          this.showModal = true;
-          this.errorMessage = "Error en la solicitud";
-        });
+         this.encrypt = this.url+encryptedData;
+         console.log("URL A CONSULTAR",this.encrypt);
+      this.showModal = true;
+      // axios
+      //   .get('https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/'+encryptedData)
+      //   .then((response) => {
+      //     if (response.data === "correcto") {
+      //       this.showModal = true;
+      //       this.successMessage = "Respuesta correcta";
+      //       this.startCountdown();
+      //     } else {
+            
+      //       this.errorMessage = "Error en la respuesta";
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     this.showModal = true;
+      //     this.errorMessage = "Error en la solicitud";
+      //   });
     },
     startCountdown() {
       const timer = setInterval(() => {
