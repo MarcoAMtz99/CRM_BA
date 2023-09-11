@@ -50,9 +50,11 @@
                             @endif
 
                         @else
+                        @if(Auth::user()->name == "Admin")
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('campaign') }}">{{ __('Campañas') }}</a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('manager') }}">{{ __('Consulta') }}</a>
                         </li>

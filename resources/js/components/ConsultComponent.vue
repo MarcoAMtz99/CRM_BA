@@ -82,7 +82,6 @@ export default {
      const key = CryptoJS.enc.Utf8.parse(encryptionKey);
      const iv = CryptoJS.enc.Utf8.parse(encryptionKey);
 
-      // Realiza el cifrado AES/CBC con PKCS5Padding
       const ciphertext = CryptoJS.AES.encrypt(jsonString, key, {
         iv: iv,
         mode: CryptoJS.mode.CBC,
@@ -90,7 +89,6 @@ export default {
         keySize: 256 / 8, 
       });
 
-      // Combina el IV con el texto cifrado y conviértelo a Base64 seguro
       const combined = iv.concat(ciphertext.ciphertext);
       const base64Result = CryptoJS.enc.Base64.stringify(combined);
 
@@ -118,7 +116,7 @@ export default {
            "token":"Cobranza2022",
            "idOrigen":2,
            "idDespacho":1,
-           "fecha":"19/12/2022 13:20:00"
+           "fecha":"11/09/2023 13:20:00"
         }
         ;
 
@@ -128,7 +126,7 @@ export default {
   
 
       axios
-        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${this.folio}`)
+        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${encryptedData}`)
         .then((response) => {
           if (response.data === "correcto") {
             this.showModal = true;
@@ -137,6 +135,8 @@ export default {
           } else {
             this.showModal = true;
             this.errorMessage = "Error en la respuesta";
+            this.startCountdown();
+
           }
         })
         .catch((error) => {

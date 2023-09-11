@@ -21,9 +21,7 @@
                               <td>{{ item.id }}</td>
                               <td>{{ item.tipoCampania == 1 ? "inbount": "outbount" }}</td>
                               <td>
-                                <button @click="viewAction(index)" class="btn btn-info">
-                                  <i class="fa fa-eye"></i> Ver
-                                </button>
+                                <a :href="'/campañas/detalle/' + item.id" class="btn btn-info">Ver</a>
                               </td>
                             </tr>
                           </tbody>
@@ -95,24 +93,24 @@
             console.error('Error en la solicitud:', error);
           }
             },
-    viewAction(index) {
+           viewAction(index) {
               // Implementa aquí la acción para ver los detalles del ítem
               console.log('Ver detalles de', this.tableData[index]);
             },
             downloadCSV() {
-              const csvContent = 'data:text/csv;charset=utf-8,';
-              csvContent += 'ID,Tipo de Campaña\n'; // Encabezados
-
-              this.tableData.forEach((item) => {
-                csvContent += `${item.id},${item.campaignType}\n`;
-              });
-
+              const data = this.campanias;
+              const csvContent = "data:text/csv;charset=utf-8," + this.convertArrayToCSV(data);
               const encodedUri = encodeURI(csvContent);
-              const link = document.createElement('a');
-              link.setAttribute('href', encodedUri);
-              link.setAttribute('download', 'data.csv');
+              const link = document.createElement("a");
+              link.setAttribute("href", encodedUri);
+              link.setAttribute("download", "campanias.csv");
               document.body.appendChild(link);
               link.click();
+            },
+            convertArrayToCSV(data) {
+              const header = Object.keys(data[0]).join(",");
+              const rows = data.map(item => Object.values(item).join(","));
+              return header + "\n" + rows.join("\n");
             },
 
 
