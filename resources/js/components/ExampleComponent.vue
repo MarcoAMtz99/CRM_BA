@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
+                    <div class="card-header">Folio Component</div>
 
                     <div class="card-body">
                        <div class="mb-3">
@@ -18,6 +18,162 @@
                             style="border: 1px solid #000;"
                           />
                         </div>
+
+                        <div class="col-auto">
+                          <button @click="sendRequest" class="" data-bs-toggle="modal" data-bs-target="#exampleModal">CONSULTAR</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Peticion Component</div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-6">
+
+                                     <div class="mb-3">
+                          <label for="folioInput" class="form-label">Folio:</label>
+                          <input
+                            v-model="folio2"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el folio"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="folioInput" class="form-label">IdPais:</label>
+                          <input
+                            v-model="idPais"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el idPais"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="folioInput" class="form-label">idCanal:</label>
+                          <input
+                            v-model="idCanal"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el idCanal"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+                         <div class="mb-3">
+                          <label for="folioInput" class="form-label">idSucursal:</label>
+                          <input
+                            v-model="idSucursal"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el idSucursal"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+
+                             <div class="mb-3">
+                          <label for="folioInput" class="form-label">numeroTelefono:</label>
+                          <input
+                            v-model="numeroTelefono"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el numeroTelefono"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+                         <div class="mb-3">
+                          <label for="folioInput" class="form-label">idCampana:</label>
+                          <input
+                            v-model="idCampana"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el idCampana"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+                         <div class="mb-3">
+                          <label for="folioInput" class="form-label">token:</label>
+                          <input
+                            v-model="token"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el token"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+                            </div>
+                            <div class="col-6">
+
+
+                         <div class="mb-3">
+                          <label for="folioInput" class="form-label">idOrigen:</label>
+                          <input
+                            v-model="idOrigen"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el idOrigen"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="folioInput" class="form-label">idDespacho:</label>
+                          <input
+                            v-model="idDespacho"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el idDespacho"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="folioInput" class="form-label">fecha:</label>
+                          <input
+                            v-model="fecha"
+                            @input="validateInput"
+                            type="text"
+                            class=""
+                            id="folioInput"
+                            placeholder="Ingresa el fecha"
+                            style="border: 1px solid #000;"
+                          />
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="folioInput" class="form-label">Link generado cifrado:</label>
+                          <p>{{encrypt2}} </p>
+                        </div>
+                            </div>
+                        </div>
+                      
+                         
 
                         <div class="col-auto">
                           <button @click="sendRequest" class="" data-bs-toggle="modal" data-bs-target="#exampleModal">CONSULTAR</button>
@@ -58,6 +214,8 @@
             <p v-if="errorMessage">{{ errorMessage }}</p>
                  <p v-if="countdown > 0">{{ countdown }} segundos restantes.</p>
                  <a :href="encrypt" target="_blank">Mostrar la direccion</a>
+                 <h4>Direccion generada:</h4>
+                 <p>{{encrypt}} </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -81,6 +239,19 @@ import CryptoJS from 'crypto-js';
           countdown: 300, // 5 minutos en segundos
           url:"https://www.gestioncobranzabaz.com.mx/regional/front-gestiones/index.html#/front-cobranza/credimax/",
           encrypt:'',
+          idPais:"",
+          idCanal:"",
+          idSucursal:"",
+          folio2:"",
+          numeroTelefono:"",
+          idCampana:"",
+          numeroEmpleado:"",
+          token:"",
+          idOrigen:"",
+          idDespacho:"",
+          fecha:"",
+          encrypt2:'',
+
         };
       },
         mounted() {
@@ -158,12 +329,37 @@ import CryptoJS from 'crypto-js';
         }
         ;
 
+         const jsonData2 = {
+           "clienteUnico":{
+              "idPais":this.idPais,
+              "idCanal":this.idCanal,
+              "idSucursal":this.idSucursal,
+              "folio":this.folio2
+           },
+           "numeroTelefono":this.numeroTelefono,
+           "idCampana":this.idCampana,
+           "numeroEmpleado":this.numeroEmpleado,
+           "token":this.token,
+           "idOrigen":this.idOrigen,
+           "idDespacho":this.idDespacho,
+           "fecha":this.fecha
+        }
+        ;
+
         const encryptionKey = '192cY7vUQbodWq4q';
 
-         const encryptedData = this.encryptJSON2(jsonData, '192cY7vUQbodWq4q');
+         const encryptedData = this.encryptJSON2(jsonData, '192cY7vUQbodWq4q'); 
+
+         const encryptedData2 = this.encryptJSON2(jsonData2, '192cY7vUQbodWq4q');
+
   
          this.encrypt = this.url+encryptedData;
+         this.encrypt2 = this.url+encryptedData2;
+
          console.log("URL A CONSULTAR",this.encrypt);
+         console.log("Datos Json:",jsonData2);
+         console.log("URL A CONSULTAR",this.encrypt2);
+
       this.showModal = true;
       // axios
       //   .get('https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/'+encryptedData)
