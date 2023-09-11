@@ -41,7 +41,7 @@ class HomeController extends Controller
            "token":"Cobranza2022",
            "idOrigen":2,
            "idDespacho":1,
-           "fecha":"19/12/2022 13:20:00"
+           "fecha":"11/09/2023 15:07:00"
         }';
 
         $key = "192cY7vUQbodWq4q";
