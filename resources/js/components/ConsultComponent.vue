@@ -8,7 +8,10 @@
 
           <div class="card-body">
             <div class="mb-3">
-              <label for="folioInput" class="form-label">Folio:</label>
+              <label for="folioInput" class="form-label" :class="{ 'text-danger': errorFolio }">
+                Folio:
+                <span v-if="errorFolio">No puede estar vacío y debe ser mayor que 0.</span>
+              </label>
               <input
                 v-model="folio"
                 @input="validateInput"
@@ -33,22 +36,33 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+    <div class="modal-content border-dark" style="box-shadow: 10px 5px 5px black;">
+      <div class="modal-header border-dark">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Consultar folio</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <p v-if="successMessage">Respuesta correcta</p>
+         <p v-if="successMessage">{{successMessage}} </p>
             <p v-if="errorMessage">{{ errorMessage }}</p>
-                 <p v-if="countdown > 0">{{ countdown }} segundos restantes.</p>
+            <div v-if="error !== true">
+                
+            </div>
+            <div v-else>
+                <div class="row">
+                    <div class="col-12">
+                  <a :href="url" target="_blank" class="btn btn-primary btn-block" style="width: 100%;" >Abrir link</a>
+                        
+                    </div>
+                </div>
+             <p v-if="countdown > 0">{{ countdown }} segundos restantes.</p>
+            </div>
+           
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -66,8 +80,11 @@ export default {
     return {
       folio: "",
       showModal: false,
-      successMessage: "",
+      successMessage: false,
       errorMessage: "",
+      url:"",
+      error:false,
+      errorFolio: false, 
       countdown: 300, // 5 minutos en segundos
     };
   },
@@ -98,51 +115,75 @@ export default {
     validateInput() {
      
       this.folio = this.folio.replace(/\D/g, "");
+
+     if (this.folio.trim() === "" || parseInt(this.folio) <= 0) {
+          this.errorFolio = true; 
+          return false; 
+        } else {
+          this.errorFolio = false; 
+          return true; 
+        }
     },
     sendRequest() {
+
+      const isValid = this.validateInput();
+      if(isValid === false){
+        this.errorMessage = "No puedes consultar un folio vacio";
+
+        return false;
+      }else{
+
       this.showModal = true;
-      this.successMessage = "Respuesta correcta";
+      this.countdown=300;
 
-      const jsonData = {
-           "clienteUnico":{
-              "idPais":1,
-              "idCanal":1,
-              "idSucursal":100,
-              "folio":this.folio
-           },
-           "numeroTelefono":"4878725518",
-           "idCampana":172,
-           "numeroEmpleado":"800046",
-           "token":"Cobranza2022",
-           "idOrigen":2,
-           "idDespacho":1,
-           "fecha":"11/09/2023 13:20:00"
-        }
-        ;
 
-        const encryptionKey = '192cY7vUQbodWq4q';
+      // const jsonData = {
+      //   "clienteUnico": {
+      //     "idPais": 1,
+      //     "idCanal": 1,
+      //     "idSucursal": 100,
+      //     "folio": this.folio
+      //   },
+      //   "numeroTelefono": "4878725518",
+      //   "idCampana": 172,
+      //   "numeroEmpleado": "800046",
+      //   "token": "Cobranza2022",
+      //   "idOrigen": 2,
+      //   "idDespacho": 1,
+      //   "fecha": "11/09/2023 13:20:00"
+      // };
+      const Data = {
+          "folio": this.folio
+      };
 
-         const encryptedData = this.encryptJSON2(jsonData, '192cY7vUQbodWq4q');
-  
 
       axios
-        .get(`https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/${encryptedData}`)
+        .post('/generate-link', { Data }) 
         .then((response) => {
-          if (response.data === "correcto") {
+            console.log(response.data);
+
+          if (response.data.status === true) {
             this.showModal = true;
-            this.successMessage = "Respuesta correcta";
+            this.error = true;
+            this.url = response.data.cipherText;
+            this.successMessage = "Link generado con exito, da click en el boton para visualizar en una nueva ventana la informacion";
+            this.errorMessage = "";
             this.startCountdown();
           } else {
             this.showModal = true;
+            this.successMessage = "";
             this.errorMessage = "Error en la respuesta";
-            this.startCountdown();
-
           }
         })
         .catch((error) => {
           this.showModal = true;
+          console.log(error);
           this.errorMessage = "Error en la solicitud";
         });
+      }
+
+
+
     },
     startCountdown() {
       const timer = setInterval(() => {

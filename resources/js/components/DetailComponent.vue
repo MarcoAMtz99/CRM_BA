@@ -9,7 +9,7 @@
                        <div>
                         <button @click="exportToCSV" class="btn btn-primary mb-3">Descargar CSV</button>
                         <div class="mb-3">
-                          <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar por Nombre, Folio o Teléfono">
+                          <!-- <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar por Nombre, Folio o Teléfono"> -->
                         </div>
                         <table class="table table-striped table-bordered">
                           <thead class="thead-dark">
@@ -34,7 +34,7 @@
 
 
                               <td>
-                                <button @click="viewAction(index)" class="btn btn-info">
+                                <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
                                   <i class="fa fa-eye"></i> Ver
                                 </button>
                               </td>
@@ -52,6 +52,23 @@
             </div>
         </div>
     </div>
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog ">
+      <div class="modal-content border-dark" style="box-shadow: 10px 5px 5px black;">
+        <div class="modal-header border-dark" >
+          <h5 class="modal-title" id="exampleModalLabel">Consultar folio</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+          <p>Link generado con exito, da click en el boton para visualizar en una nueva ventana la informacion</p>
+          <a :href="cipherText" target="_blank" class="btn btn-primary" style="width:100%;">Abrir link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -62,6 +79,8 @@
           currentPage: 1,
           itemsPerPage: 10,
           searchQuery: "",
+          showModal: false, 
+         cipherText: "", 
         };
       },
         mounted() {
@@ -271,9 +290,46 @@
           }
             },
           viewAction(index) {
-              // Implementa aquí la acción para ver los detalles del ítem
               console.log('Ver detalles de', this.clientes[index]);
             },
+          sendRequest(item) {
+
+            // console.log(item);
+
+      // this.showModal = true;
+      // this.countdown=300;
+
+      const Data = {
+          "folio": item.folio,
+          "idCampania":item.idCampania,
+          "idSucursal":item.idSucursal,
+      };
+
+
+      axios
+        .post('/generate-link', { Data }) 
+        .then((response) => {
+            console.log(response.data);
+
+          if (response.data.status === true) {
+          this.cipherText = response.data.cipherText;
+          this.showModal = true; 
+          } else {
+            // this.showModal = true;
+            // this.errorMessage = "Error en la respuesta";
+          }
+        })
+        .catch((error) => {
+          // this.showModal = true;
+          // console.log(error);
+          // this.errorMessage = "Error en la solicitud";
+        });
+
+  
+
+
+
+    },
             exportToCSV() {
               const data = this.clientes;
               const csvContent = "data:text/csv;charset=utf-8," + this.convertArrayToCSV(data);

@@ -294,8 +294,9 @@ import CryptoJS from 'crypto-js';
 
       const combined = iv.concat(ciphertext.ciphertext);
       const base64Result = CryptoJS.enc.Base64.stringify(combined);
+      const base64UrlSafe = base64Result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 
-      return base64Result;
+      return base64UrlSafe;
     },
 
     validateInput() {
@@ -312,7 +313,7 @@ import CryptoJS from 'crypto-js';
               'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
             };
 
-      const jsonData = {
+      const jsonData = `{
            "clienteUnico":{
               "idPais":1,
               "idCanal":1,
@@ -325,8 +326,8 @@ import CryptoJS from 'crypto-js';
            "token":"Cobranza2022",
            "idOrigen":2,
            "idDespacho":1,
-           "fecha":"19/12/2022 13:20:00"
-        }
+           "fecha":"11/09/2023 18:28:00"
+        }`
         ;
 
          const jsonData2 = {
@@ -343,8 +344,7 @@ import CryptoJS from 'crypto-js';
            "idOrigen":this.idOrigen,
            "idDespacho":this.idDespacho,
            "fecha":this.fecha
-        }
-        ;
+        };
 
         const encryptionKey = '192cY7vUQbodWq4q';
 
@@ -361,22 +361,7 @@ import CryptoJS from 'crypto-js';
          console.log("URL A CONSULTAR",this.encrypt2);
 
       this.showModal = true;
-      // axios
-      //   .get('https://cll.apps.cbz.baz.cloud:8444/regional/front-gestiones/index.html#/front-cobranza/credimax/'+encryptedData)
-      //   .then((response) => {
-      //     if (response.data === "correcto") {
-      //       this.showModal = true;
-      //       this.successMessage = "Respuesta correcta";
-      //       this.startCountdown();
-      //     } else {
-            
-      //       this.errorMessage = "Error en la respuesta";
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     this.showModal = true;
-      //     this.errorMessage = "Error en la solicitud";
-      //   });
+     
     },
     startCountdown() {
       const timer = setInterval(() => {

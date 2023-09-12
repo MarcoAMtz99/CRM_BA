@@ -19,7 +19,10 @@ Route::get('/consulta', [App\Http\Controllers\ManagerController::class, 'index']
 Route::get('/test', function () {
     return view('test');
 });
+
+Route::post('/generate-link', [App\Http\Controllers\HomeController::class, 'encryptJson'])->name('link');
+
+
 });
 
-Route::get('/link', [App\Http\Controllers\HomeController::class, 'encryptJson'])->name('link');
 
