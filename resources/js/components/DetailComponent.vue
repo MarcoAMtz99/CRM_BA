@@ -129,7 +129,9 @@
              
             const response = await axios.post(apiUrl, {}, { headers });
             this.clientes = response.data.resultado.clientes;
-            console.log('Respuesta de la API:',  this.clientes,response);
+            console.log('Respuesta RESPONSE:',response);
+            console.log('Respuesta ARRAY:',  this.clientes,response);
+
           } catch (error) {
             
             console.error('Error en la solicitud:', error);

@@ -46,8 +46,8 @@
         };
       },
         mounted() {
-            console.log('ID URL.',this.id);
-            this.idUrl  = this.id;
+            // console.log('ID URL.',this.id);
+            // this.idUrl  = this.id;
             this.consultarAPI();
         },
          methods: {
