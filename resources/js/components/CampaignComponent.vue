@@ -56,37 +56,9 @@
               'Authorization': 'Basic ' + btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'), 
               'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
             };
-             const data = {
-              "codigo": "200.CobranzaCredito-Call-Center.155200",
-              "mensaje": "Operación exitosa.",
-              "folio": "155-202000021116513300",
-              "resultado": {
-                "campanias": [
-                  {
-                    "id": 72,
-                    "tipoCampania": 2
-                  },
-                  {
-                    "id": 73,
-                    "tipoCampania": 1
-                  },
-                  {
-                    "id": 74,
-                    "tipoCampania": 2
-                  },
-                  {
-                    "id": 75,
-                    "tipoCampania": 2
-                  },
-                  {
-                    "id": 78,
-                    "tipoCampania": 1
-                  }
-                ]
-              }
-            };
-            // const response = await axios.post(apiUrl, {}, { headers });
-            this.campanias = data.resultado.campanias;
+
+            const response = await axios.post(apiUrl, {}, { headers });
+            this.campanias = response.data.resultado.campanias;
             console.log('Respuesta de la API:',  this.campanias);
           } catch (error) {
             
