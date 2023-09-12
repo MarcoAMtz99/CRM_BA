@@ -41,11 +41,11 @@
                             </tr>
                           </tbody>
                         </table>
-                        <div class="pagination">
+                      <!--   <div class="pagination">
                         <button @click="prevPage" :disabled="currentPage === 1" class="btn btn-info"> Ant </button>
                         <span>Página {{ currentPage }}</span>
                         <button @click="nextPage" :disabled="currentPage * itemsPerPage  >= filteredClientes.length" class="btn btn-info"> Sig </button>
-                      </div>
+                      </div> -->
                       </div>
                     </div>
                 </div>

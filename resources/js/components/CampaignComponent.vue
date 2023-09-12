@@ -35,6 +35,7 @@
 </template>
 
 <script>
+  props: ['id'],
     export default {
         data() {
         return {
@@ -49,7 +50,7 @@
      async consultarAPI() {
           try {
             const idDespacho = 15; 
-            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}`;
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}&idCampana=${id}`;
 
             const headers = {
               'Content-Type': 'application/json',
