@@ -9,7 +9,7 @@
                        <div>
                         <button @click="exportToCSV" class="btn btn-primary mb-3">Descargar CSV</button>
                         <div class="mb-3">
-                          <!-- <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar por Nombre, Folio o Teléfono"> -->
+                          <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar por Nombre, Folio o Teléfono">
                         </div>
                         <table class="table table-striped table-bordered">
                           <thead class="thead-dark">
@@ -41,7 +41,7 @@
                             </tr>
                           </tbody>
                         </table>
-                      <!--   <div class="pagination">
+                        <!-- <div class="pagination">
                         <button @click="prevPage" :disabled="currentPage === 1" class="btn btn-info"> Ant </button>
                         <span>Página {{ currentPage }}</span>
                         <button @click="nextPage" :disabled="currentPage * itemsPerPage  >= filteredClientes.length" class="btn btn-info"> Sig </button>
@@ -81,7 +81,7 @@
         return {
           clientes: [],
           currentPage: 1,
-          itemsPerPage: 10,
+          itemsPerPage: 10000000,
           searchQuery: "",
           showModal: false, 
          cipherText: "", 
@@ -129,8 +129,8 @@
              
             const response = await axios.post(apiUrl, {}, { headers });
             this.clientes = response.data.resultado.clientes;
-            console.log('Respuesta RESPONSE:',response);
-            console.log('Respuesta ARRAY:',  this.clientes,response);
+            console.log('Respuesta de la API:',response);
+            console.log('Respuesta de la API:',  this.clientes,response);
 
           } catch (error) {
             
