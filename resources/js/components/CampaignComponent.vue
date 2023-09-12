@@ -54,7 +54,7 @@
      async consultarAPI() {
           try {
             const idDespacho = 15; 
-            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}`;
 
             const headers = {
               'Content-Type': 'application/json',

@@ -4,7 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <detail-component></detail-component>
+            @php
+            $id = request()->route('id');
+            @endphp 
+            <detail-component :id="{{ $id }}"></detail-component>
         </div>
     </div>
 </div>

@@ -72,7 +72,11 @@
 </template>
 
 <script>
+
     export default {
+       props: {
+        id: Number,
+      },
         data() {
         return {
           clientes: [],
@@ -84,7 +88,8 @@
         };
       },
         mounted() {
-            // console.log('Component Consultar.')
+            console.log('ID URL.',this.id);
+            this.idUrl = this.id;
             this.consultarAPI();
         },
         computed: {
@@ -114,7 +119,7 @@
          async consultarAPI() {
           try {
             const idDespacho = 15; 
-            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}`;
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
 
             const headers = {
               'Content-Type': 'application/json',
