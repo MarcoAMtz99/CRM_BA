@@ -35,8 +35,10 @@
 </template>
 
 <script>
-  props: ['id'],
     export default {
+      props: {
+        id: Number,
+      },
         data() {
         return {
           campanias: [],
