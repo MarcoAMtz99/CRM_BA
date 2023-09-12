@@ -29,11 +29,11 @@ class ManagerController extends Controller
         "clienteUnico": {
         "idPais": 1,
         "idCanal": 1,
-        "idSucursal": 162,
+        "idSucursal": ' . $request->Data['idSucursal'] . ',
         "folio": "' . $request->Data['folio'] . '"
             },
             "numeroTelefono": "4878725518",
-            "idCampana": 1738,
+            "idCampana": ' . $request->Data['idCampania'] . ',
             "numeroEmpleado": "800046",
             "token": "Cobranza2022",
             "idOrigen": 2,
