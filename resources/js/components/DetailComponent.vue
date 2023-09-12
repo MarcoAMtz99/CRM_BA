@@ -119,7 +119,7 @@
          async consultarAPI() {
           try {
             const idDespacho = 15; 
-            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-clientes?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
 
             const headers = {
               'Content-Type': 'application/json',
@@ -129,7 +129,7 @@
              
             const response = await axios.post(apiUrl, {}, { headers });
             this.clientes = response.data.resultado.clientes;
-            console.log('Respuesta de la API:',  this.clientes);
+            console.log('Respuesta de la API:',  this.clientes,response);
           } catch (error) {
             
             console.error('Error en la solicitud:', error);
