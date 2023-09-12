@@ -42,19 +42,19 @@
         data() {
         return {
           campanias: [],
-          irUrl:"",
+          idUrl:"",
         };
       },
         mounted() {
             console.log('ID URL.',this.id);
-            this.irUrl  = this.id;
+            this.idUrl  = this.id;
             this.consultarAPI();
         },
          methods: {
      async consultarAPI() {
           try {
             const idDespacho = 15; 
-            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}&idCampana=${this.id}`;
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
 
             const headers = {
               'Content-Type': 'application/json',
