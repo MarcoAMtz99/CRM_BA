@@ -20,7 +20,7 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::post('/generate-link', [App\Http\Controllers\HomeController::class, 'encryptJson'])->name('link');
+Route::post('/generate-link', [App\Http\Controllers\ManagerController::class, 'encryptJson'])->name('link');
 
 
 });
