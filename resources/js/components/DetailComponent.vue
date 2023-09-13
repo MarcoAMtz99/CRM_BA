@@ -166,18 +166,17 @@ DataTable.use(DataTablesCore);
           },
         },
         created() {
-        // Supongamos que 'response' es la respuesta JSON que recibiste
-        this.tablaData = this.clientes.map((item) => ({
-          Nombre: item.nombre,
-          Folio: item.folio,
-          "Telefono 1": item.telefono1,
-          "Telefono 2": item.telefono2,
-          "Telefono 3": item.telefono3,
+        // this.tablaData = this.clientes.map((item) => ({
+        //   Nombre: item.nombre,
+        //   Folio: item.folio,
+        //   "Telefono 1": item.telefono1,
+        //   "Telefono 2": item.telefono2,
+        //   "Telefono 3": item.telefono3,
 
-          Acciones: `
-           <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
-          `,
-        }));
+        //   Acciones: `
+        //    <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
+        //   `,
+        // }));
       },
          methods: {
           mostrarAlert( folio, idSucursal, idCampania) {
@@ -210,6 +209,8 @@ DataTable.use(DataTablesCore);
                    <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
                   `,
                 }));
+
+                console.log(" this.tablaData",this.tablaData);
           } catch (error) {
             
             console.error('Error en la solicitud:', error);
