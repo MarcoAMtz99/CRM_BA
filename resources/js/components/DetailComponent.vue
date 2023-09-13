@@ -199,7 +199,17 @@ DataTable.use(DataTablesCore);
             this.clientes = response.data.resultado.clientes;
             console.log('Respuesta de la API:',response);
             console.log('Respuesta de la API:',  this.clientes,response);
+               this.tablaData = this.clientes.map((item) => ({
+                  Nombre: item.nombre,
+                  Folio: item.folio,
+                  "Telefono 1": item.telefono1,
+                  "Telefono 2": item.telefono2,
+                  "Telefono 3": item.telefono3,
 
+                  Acciones: `
+                   <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
+                  `,
+                }));
           } catch (error) {
             
             console.error('Error en la solicitud:', error);
