@@ -1,7 +1,13 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+          <div>
+    <!-- Loader -->
+    <div v-if="loading" class="loader">Cargando...</div>
+    
+    <!-- Contenido de la página -->
+    <div v-else>
+      <div class="col-md-12">
                 <div class="card border-dark mb-3">
                     <div class="card-header">Campaña detalle</div>
 
@@ -75,6 +81,9 @@
                     </div>
                 </div>
             </div>
+    </div>
+  </div>
+            
         </div>
     </div>
 
@@ -112,6 +121,7 @@ DataTable.use(DataTablesCore);
         data() {
         return {
           clientes: [],
+          loading: true,
           currentPage: 1,
           itemsPerPage: 100,
           searchQuery: "",
@@ -138,6 +148,7 @@ DataTable.use(DataTablesCore);
         };
       },
         mounted() {
+            this.fetchData();
             console.log('ID URL.',this.id);
             this.idUrl = this.id;
             this.consultarAPI();
@@ -150,7 +161,7 @@ DataTable.use(DataTablesCore);
       },
          methods: {
           mostrarAlert( folio, idSucursal, idCampania) {
-            alert(`Haz clic en ${nombre}. Folio: ${folio}, Sucursal: ${idSucursal}, Campania: ${idCampania}`);
+            console.log(`Haz clic en ${nombre}. Folio: ${folio}, Sucursal: ${idSucursal}, Campania: ${idCampania}`);
             // Puedes usar 'nombre', 'folio', 'idSucursal' e 'idCampania' como sea necesario
           },
          async consultarAPI() {
@@ -180,7 +191,10 @@ DataTable.use(DataTablesCore);
                 ]);
 
                 console.log(" this.tablaData",this.tablaData);
+        this.loading = false;
+
           } catch (error) {
+        this.loading = false;
             
             console.error('Error en la solicitud:', error);
           }
