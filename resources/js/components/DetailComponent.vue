@@ -81,7 +81,7 @@
         return {
           clientes: [],
           currentPage: 1,
-          itemsPerPage: 10000000,
+          itemsPerPage: 100,
           searchQuery: "",
           showModal: false, 
          cipherText: "", 
