@@ -11,7 +11,7 @@
                        <!--  <div class="mb-3">
                           <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar por Nombre, Folio o Teléfono">
                         </div> -->
-                        <table class="table table-striped table-bordered">
+                       <!--  <table class="table table-striped table-bordered">
                           <thead class="thead-dark">
                             <tr>
                               <th>Nombre</th>
@@ -40,12 +40,37 @@
                               </td>
                             </tr>
                           </tbody>
-                        </table>
+                        </table> -->
                         <!-- <div class="pagination">
                         <button @click="prevPage" :disabled="currentPage === 1" class="btn btn-info"> Ant </button>
                         <span>Página {{ currentPage }}</span>
                         <button @click="nextPage" :disabled="currentPage * itemsPerPage  >= filteredClientes.length" class="btn btn-info"> Sig </button>
                       </div> -->
+                      </div>
+                       <div>
+
+                        <div>
+                         
+                        <h1>Campañas</h1>
+                        <DataTable :data="tablaData" class="table table-hover table-striped" width="100%">
+                          <thead>
+                              <tr>
+                                  <th>Nombre</th>
+                                  <th>Folio</th>
+                                  <th>Telefono 1</th>
+                                  <th>Telefono 2</th>
+                                  <th>Telefono 3</th>
+                                  <th>Acciones</th>
+
+
+
+                              </tr>
+                          </thead>
+                      </DataTable>
+                  
+                       <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
+                         <bootstrap-table2 :data="tablaData" :columns="columnas"></bootstrap-table2> -->
+                      </div>
                       </div>
                     </div>
                 </div>
@@ -72,11 +97,18 @@
 </template>
 
 <script>
+import DataTable from 'datatables.net-vue3';
+import DataTablesCore from 'datatables.net-bs5';
+// import DataTablesCore from 'datatables.net';
 
+DataTable.use(DataTablesCore);
     export default {
        props: {
         id: Number,
       },
+      components: {
+    DataTable, // Registra el componente aquí
+  },
         data() {
         return {
           clientes: [],
@@ -85,6 +117,24 @@
           searchQuery: "",
           showModal: false, 
          cipherText: "", 
+         tablaData: [],
+      columnas: [
+        // Define las columnas de la tabla
+        {
+          label: 'ID',
+          field: 'id',
+        },
+        {
+          label: 'Nombre',
+          field: 'nombre',
+        },
+        {
+          label: 'Edad',
+          field: 'edad',
+        },
+        // ...
+      ],
+      filtro:null,
         };
       },
         mounted() {
@@ -115,7 +165,25 @@
             return this.filteredClientes.slice(startIndex, endIndex);
           },
         },
+        created() {
+        // Supongamos que 'response' es la respuesta JSON que recibiste
+        this.tablaData = this.clientes.map((item) => ({
+          Nombre: item.nombre,
+          Folio: item.folio,
+          "Telefono 1": item.telefono1,
+          "Telefono 2": item.telefono2,
+          "Telefono 3": item.telefono3,
+
+          Acciones: `
+           <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
+          `,
+        }));
+      },
          methods: {
+          mostrarAlert( folio, idSucursal, idCampania) {
+            alert(`Haz clic en ${nombre}. Folio: ${folio}, Sucursal: ${idSucursal}, Campania: ${idCampania}`);
+            // Puedes usar 'nombre', 'folio', 'idSucursal' e 'idCampania' como sea necesario
+          },
          async consultarAPI() {
           try {
             const idDespacho = 15; 
@@ -210,3 +278,7 @@
       },
     }
 </script>
+<style>
+@import 'bootstrap';
+@import 'datatables.net-bs5';
+</style>
