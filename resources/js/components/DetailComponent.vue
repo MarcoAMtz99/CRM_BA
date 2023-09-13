@@ -3,7 +3,40 @@
         <div class="row justify-content-center">
           <div>
     <!-- Loader -->
-    <div v-if="loading" class="loader">Cargando...</div>
+    <div v-if="loading" class="loader">
+      
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Clientes...</span>
+      </div>
+
+      <div class="d-flex justify-content-center">
+  <!-- <div class="spinner-border" role="status">
+
+    <span class="visually-hidden">Loading...</span>
+  </div> -->
+      <h1 class="justify-content-center ">Cargando Clientes...</h1>
+  
+</div>
+  
+    </div>
     
     <!-- Contenido de la página -->
     <div v-else>
@@ -148,7 +181,6 @@ DataTable.use(DataTablesCore);
         };
       },
         mounted() {
-            this.fetchData();
             console.log('ID URL.',this.id);
             this.idUrl = this.id;
             this.consultarAPI();
@@ -186,7 +218,7 @@ DataTable.use(DataTablesCore);
                   item.telefono2,
                   item.telefono3,
                   `
-                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
+                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
                   `,
                 ]);
 
