@@ -33,7 +33,7 @@
     <span class="visually-hidden">Loading...</span>
   </div> -->
       <h1 class="justify-content-center ">Cargando Clientes...</h1>
-  
+
 </div>
   
     </div>
@@ -42,7 +42,7 @@
     <div v-else>
       <div class="col-md-12">
                 <div class="card border-dark mb-3">
-                    <div class="card-header">Campaña detalle</div>
+                    <div class="card-header">Campaña detalle <strong>{{idUrl}} </strong></div>
 
                     <div class="card-body">
                        <div>
@@ -90,7 +90,7 @@
 
                         <div>
                          
-                        <h1>Clientes de la campaign</h1>
+                        <h1>Clientes de la campaña</h1>
                         <DataTable :data="tablaData" class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
