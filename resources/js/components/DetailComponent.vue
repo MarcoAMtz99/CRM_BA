@@ -51,7 +51,7 @@
 
                         <div>
                          
-                        <h1>Campañas</h1>
+                        <h1>Clientes de la campaign</h1>
                         <DataTable :data="tablaData" class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
@@ -143,40 +143,10 @@ DataTable.use(DataTablesCore);
             this.consultarAPI();
         },
         computed: {
-         filteredClientes() {
-            const searchTerm = this.searchQuery.trim();
-            if (searchTerm === "") {
-              return this.clientes;
-            }
-            const lowerCaseSearchTerm = searchTerm.toLowerCase();
-            return this.clientes.filter(item => {
-              return (
-                item['nombre'].toLowerCase().includes(lowerCaseSearchTerm) ||
-                item['folio'].toString().includes(searchTerm) ||
-                item['telefono1'].includes(searchTerm) ||
-                item['telefono2'].includes(searchTerm) ||
-                item['telefono3'].includes(searchTerm)
-              );
-            });
-          },
-          paginatedClientes() {
-            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-            const endIndex = startIndex + this.itemsPerPage;
-            return this.filteredClientes.slice(startIndex, endIndex);
-          },
+         
         },
         created() {
-        // this.tablaData = this.clientes.map((item) => ({
-        //   Nombre: item.nombre,
-        //   Folio: item.folio,
-        //   "Telefono 1": item.telefono1,
-        //   "Telefono 2": item.telefono2,
-        //   "Telefono 3": item.telefono3,
-
-        //   Acciones: `
-        //    <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
-        //   `,
-        // }));
+      
       },
          methods: {
           mostrarAlert( folio, idSucursal, idCampania) {
@@ -198,17 +168,16 @@ DataTable.use(DataTablesCore);
             this.clientes = response.data.resultado.clientes;
             console.log('Respuesta de la API:',response);
             console.log('Respuesta de la API:',  this.clientes,response);
-               this.tablaData = this.clientes.map((item) => ({
-                  Nombre: item.nombre,
-                  Folio: item.folio,
-                  "Telefono 1": item.telefono1,
-                  "Telefono 2": item.telefono2,
-                  "Telefono 3": item.telefono3,
-
-                  Acciones: `
-                   <button @click="mostrarAlert(' '${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
+              this.tablaData = this.clientes.map((item) => [
+                  item.nombre,
+                  item.folio,
+                  item.telefono1,
+                  item.telefono2,
+                  item.telefono3,
+                  `
+                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Mostrar Alert</button>
                   `,
-                }));
+                ]);
 
                 console.log(" this.tablaData",this.tablaData);
           } catch (error) {
