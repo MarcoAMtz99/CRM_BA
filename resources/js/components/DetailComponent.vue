@@ -193,7 +193,7 @@ DataTable.use(DataTablesCore);
       },
          methods: {
           mostrarAlert( folio, idSucursal, idCampania) {
-            console.log(`Haz clic en ${nombre}. Folio: ${folio}, Sucursal: ${idSucursal}, Campania: ${idCampania}`);
+            console.log(folio,idSucursal,idCampania);
             // Puedes usar 'nombre', 'folio', 'idSucursal' e 'idCampania' como sea necesario
           },
          async consultarAPI() {
@@ -218,7 +218,7 @@ DataTable.use(DataTablesCore);
                   item.telefono2,
                   item.telefono3,
                   `
-                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
+                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
                   `,
                 ]);
 
