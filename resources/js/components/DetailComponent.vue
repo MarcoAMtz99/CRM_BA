@@ -98,6 +98,27 @@
                         <h1>Clientes de la campaña</h1>
                         <DataTable
                          :data="tablaData"  
+                         :options="{language:{
+                            decimal:'',
+                            emptyTable:'No hay información',
+                            info:'Mostrando _START_ a _END_ de _TOTAL_ Entradas',
+                            infoEmpty:'Mostrando 0 to 0 of 0 Entradas',
+                            infoFiltered:'(Filtrado de _MAX_ total entradas)',
+                            infoPostFix:'',
+                            thousands:',',
+                            lengthMenu:'Mostrar _MENU_ Entradas',
+                            loadingRecords:'Cargando...',
+                            processing:'Procesando...',
+                            search:'Buscar:',
+                            zeroRecords:'Sin resultados encontrados',
+                            paginate:{
+                                first:'Primero',
+                                last:'Ultimo',
+                                next:'Siguiente',
+                                previous:'Anterior'
+                            }
+                        }
+                      }"
                           class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
@@ -167,25 +188,9 @@ DataTable.use(DataTablesCore);
           itemsPerPage: 100,
           searchQuery: "",
           showModal: false, 
-         cipherText: "", 
-         tablaData: [],
-      columnas: [
-        // Define las columnas de la tabla
-        {
-          label: 'ID',
-          field: 'id',
-        },
-        {
-          label: 'Nombre',
-          field: 'nombre',
-        },
-        {
-          label: 'Edad',
-          field: 'edad',
-        },
-        // ...
-      ],
-      filtro:null,
+          cipherText: "", 
+          tablaData: [],
+          filtro:null,
         };
       },
         mounted() {
@@ -264,7 +269,7 @@ DataTable.use(DataTablesCore);
         })
         .catch((error) => {
           // this.showModal = true;
-          // console.log(error);
+          console.log(error);
           // this.errorMessage = "Error en la solicitud";
         });
 
@@ -281,7 +286,6 @@ DataTable.use(DataTablesCore);
                 saveAs(blob, "clientes.csv");
               } catch (error) {
                 console.error("Error al exportar datos a CSV:", error);
-                // Puedes mostrar una notificación o mensaje de error al usuario aquí.
               }
             },
             mostrarAlert( folio, idSucursal, idCampania) {
