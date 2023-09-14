@@ -98,14 +98,12 @@
                           </thead>
                       </DataTable>
                       <div>
-                     <b-table
-                      :items="tablaData"
-                      :fields="columnas"
-                      :filter="filtro"
-                      :per-page="10"
-                      striped
-                      hover
-                    ></b-table>
+                      <vue-bootstrap-table2
+                        :data="tablaData"
+                        :columns="columns"
+                        :pagination-options="paginationOptions"
+                        :search-options="searchOptions"
+                      ></vue-bootstrap-table2>
                     </div>
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
                         <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
