@@ -138,7 +138,7 @@
         <div class="modal-body ">
           <p>Link generado con exito, da click en el boton para visualizar en una nueva ventana la informacion</p>
           <div v-if="linkLoading">
-            <div class="spinner-grow d-flex justify-content-center" role="status">
+            <div class="spinner-grow" role="status">
               <span class="sr-only">Loading...</span>
             </div>
           </div>
@@ -311,7 +311,7 @@ DataTable.use(DataTablesCore);
 
                     }, 2000);
                 this.linkLoading = false;
-                
+
                 } else {
                   // this.showModal = true;
                   // this.errorMessage = "Error en la respuesta";
