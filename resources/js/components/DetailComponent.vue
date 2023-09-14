@@ -96,33 +96,8 @@
                         <div>
                          
                         <h1>Clientes de la campaña</h1>
-                        <div>
-                          <table id="miTabla" class="table table-hover table-striped" width="100%">
-                            <thead>
-                              <tr>
-                                <th>Nombre</th>
-                                <th>Folio</th>
-                                <th>Telefono 1</th>
-                                <th>Telefono 2</th>
-                                <th>Telefono 3</th>
-                                <th>Acciones</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr v-for="(item, index) in tablaData" :key="index">
-                                <td>{{ item[0] }}</td>
-                                <td>{{ item[1]  }}</td>
-                                <td>{{ item[2]  }}</td>
-                                <td>{{ item[3]  }}</td>
-                                <td>{{ item[4]  }}</td>
-                                <td>
-                                  <button @click="mostrarAlert(item[0], item[5], item[6])" class="btn btn-primary">Ver</button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      <!--   <DataTable
+                        <DataTable
+                         :data="tablaData"  
                           class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
@@ -137,23 +112,9 @@
 
                               </tr>
                           </thead>
-                          <tbody>
-                            <tr v-for="item in tablaData" :key="item.id">
-                              <td>{{ item.nombre }}</td>
-                              <td>{{ item.folio }}</td>
-                              <td>{{ item.telefono1 }}</td>
-                              <td>{{ item.telefono2 }}</td>
-                              <td>{{ item.telefono3 }}</td>
-                              <td>
-                                <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania)" class="btn btn-primary">Ver</button>
-                              </td>
-                            </tr>
-                    </tbody>
-                      </DataTable> -->
-               
+                      </DataTable>
+                  
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
-                       :data="tablaData" 
-
                          <bootstrap-table2 :data="tablaData" :columns="columnas"></bootstrap-table2> -->
                       </div>
                       </div>
@@ -195,7 +156,7 @@ DataTable.use(DataTablesCore);
         id: Number,
       },
       components: {
-    DataTable, // Registra el componente aquí
+    DataTable, 
   },
         data() {
         return {
@@ -257,8 +218,9 @@ DataTable.use(DataTablesCore);
                   item.telefono1,
                   item.telefono2,
                   item.telefono3,
-                  item.idSucursal,
-                  item.idCampania,
+                  `
+                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
+                  `,
                 ]);
 
         this.loading = false;
