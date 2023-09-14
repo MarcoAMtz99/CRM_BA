@@ -186,7 +186,8 @@ DataTable.use(DataTablesCore);
         };
       },
         mounted() {
-             const dataTable = $('#miTabla').DataTable({
+            const dataTable = $('#miTabla').DataTable({
+          });
             this.idUrl = this.id;
             this.consultarAPI();
         },
