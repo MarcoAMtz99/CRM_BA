@@ -186,7 +186,6 @@ DataTable.use(DataTablesCore);
         };
       },
         mounted() {
-            console.log('ID URL.',this.id);
             this.idUrl = this.id;
             this.consultarAPI();
         },
@@ -197,10 +196,6 @@ DataTable.use(DataTablesCore);
       
       },
          methods: {
-          mostrarAlert( folio, idSucursal, idCampania) {
-            console.log(folio,idSucursal,idCampania);
-            // Puedes usar 'nombre', 'folio', 'idSucursal' e 'idCampania' como sea necesario
-          },
          async consultarAPI() {
           try {
             const idDespacho = 15; 
@@ -214,8 +209,6 @@ DataTable.use(DataTablesCore);
              
             const response = await axios.post(apiUrl, {}, { headers });
             this.clientes = response.data.resultado.clientes;
-            console.log('Respuesta de la API:',response);
-            console.log('Respuesta de la API:',  this.clientes,response);
               this.tablaData = this.clientes.map((item) => [
                   item.nombre,
                   item.folio,
@@ -227,7 +220,6 @@ DataTable.use(DataTablesCore);
                   `,
                 ]);
 
-                console.log(" this.tablaData",this.tablaData);
         this.loading = false;
 
           } catch (error) {
@@ -287,6 +279,10 @@ DataTable.use(DataTablesCore);
               document.body.appendChild(link);
               link.click();
             },
+            mostrarAlert( folio, idSucursal, idCampania) {
+            console.log(folio,idSucursal,idCampania);
+            // Puedes usar 'nombre', 'folio', 'idSucursal' e 'idCampania' como sea necesario
+          },
             convertArrayToCSV(data) {
               const header = Object.keys(data[0]).join(",");
               const rows = data.map(item => Object.values(item).join(","));
