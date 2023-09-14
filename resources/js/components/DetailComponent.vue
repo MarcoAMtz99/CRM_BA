@@ -145,7 +145,6 @@ import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
 
 import VueBootstrapTable2 from 'vue-bootstrap-table2';
-import 'vue-bootstrap-table2/dist/vue-bootstrap-table2.css';
 // import DataTablesCore from 'datatables.net';
 
 DataTable.use(DataTablesCore);
@@ -334,4 +333,6 @@ DataTable.use(DataTablesCore);
 <style>
 @import 'bootstrap';
 @import 'datatables.net-bs5';
+/*@import 'vue-bootstrap-table2/dist/vue-bootstrap-table2.css';*/
+@import 'https://cdn.jsdelivr.net/npm/vue-bootstrap-table2@2.0.7/dist/vue-bootstrap-table2.css';
 </style>
