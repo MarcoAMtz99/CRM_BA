@@ -146,6 +146,7 @@
 </template>
 
 <script>
+import { saveAs } from "file-saver";
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
 // import DataTablesCore from 'datatables.net';
@@ -273,14 +274,15 @@ DataTable.use(DataTablesCore);
 
     },
             exportToCSV() {
-              const data = this.clientes;
-              const csvContent = "data:text/csv;charset=utf-8," + this.convertArrayToCSV(data);
-              const encodedUri = encodeURI(csvContent);
-              const link = document.createElement("a");
-              link.setAttribute("href", encodedUri);
-              link.setAttribute("download", "clientes.csv");
-              document.body.appendChild(link);
-              link.click();
+             try {
+                const data = this.clientes;
+                const csvContent = this.convertArrayToCSV(data);
+                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+                saveAs(blob, "clientes.csv");
+              } catch (error) {
+                console.error("Error al exportar datos a CSV:", error);
+                // Puedes mostrar una notificación o mensaje de error al usuario aquí.
+              }
             },
             mostrarAlert( folio, idSucursal, idCampania) {
             console.log(folio,idSucursal,idCampania);

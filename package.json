@@ -23,6 +23,7 @@
         "datatables.net-dt": "^1.13.6",
         "datatables.net-select": "^1.7.0",
         "datatables.net-vue3": "^2.1.3",
+        "file-saver": "^2.0.5",
         "portal-vue": "^3.0.0",
         "v-tables-3": "^0.4.7",
         "vue-bootstrap-table2": "^1.1.8",
