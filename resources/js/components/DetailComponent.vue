@@ -97,7 +97,7 @@
                          
                         <h1>Clientes de la campaña</h1>
                         <div>
-                          <table id="miTabla" class="display">
+                          <table id="miTabla" class="table table-hover table-striped" width="100%">
                             <thead>
                               <tr>
                                 <th>Nombre</th>
@@ -110,13 +110,13 @@
                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in tablaData" :key="index">
-                                <td>{{ item.nombre }}</td>
-                                <td>{{ item.folio }}</td>
-                                <td>{{ item.telefono1 }}</td>
-                                <td>{{ item.telefono2 }}</td>
-                                <td>{{ item.telefono3 }}</td>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1]  }}</td>
+                                <td>{{ item[2]  }}</td>
+                                <td>{{ item[3]  }}</td>
+                                <td>{{ item[4]  }}</td>
                                 <td>
-                                  <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania)" class="btn btn-primary">Ver</button>
+                                  <button @click="mostrarAlert(item[0], item[5], item[6])" class="btn btn-primary">Ver</button>
                                 </td>
                               </tr>
                             </tbody>
@@ -150,9 +150,7 @@
                             </tr>
                     </tbody>
                       </DataTable> -->
-                  <pre>
-                    {{tablaData}}
-                  </pre>
+               
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
                        :data="tablaData" 
 
