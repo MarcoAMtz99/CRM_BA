@@ -51,7 +51,7 @@
 
                     <div class="card-body">
                        <div>
-                        <button @click="exportToCSV" class="btn btn-primary mb-3">Descargar CSV</button>
+                        <button @click="exportToCSV" class="btn btn-primary mb-3" v-if="user === 'Admin'">Descargar CSV</button>
                   
                       </div>
                        <div>
@@ -163,6 +163,7 @@ DataTable.use(DataTablesCore);
     export default {
        props: {
         id: Number,
+        user:String,
       },
       components: {
     DataTable, 

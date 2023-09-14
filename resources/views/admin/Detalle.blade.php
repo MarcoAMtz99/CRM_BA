@@ -7,7 +7,7 @@
             @php
             $id = request()->route('id');
             @endphp 
-            <detail-component :id="{{ $id }}"></detail-component>
+            <detail-component :id="{{ $id }}" :user="{{ Auth::user()->name }}"></detail-component>
         </div>
     </div>
 </div>
