@@ -206,9 +206,12 @@ DataTable.use(DataTablesCore);
                   item.telefono1,
                   item.telefono2,
                   item.telefono3,
-                  `
-                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
-                  `,
+                  item.idSucursal,
+                  item.idCampania,
+
+                  // `
+                  // <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
+                  // `,
                 ]);
 
               this.loading = false;
