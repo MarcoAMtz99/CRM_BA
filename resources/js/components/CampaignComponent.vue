@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { saveAs } from "file-saver";
+  
     export default {
       props: {
         id: Number,
@@ -74,15 +76,15 @@
               // Implementa aquí la acción para ver los detalles del ítem
               console.log('Ver detalles de', this.tableData[index]);
             },
-            downloadCSV() {
-              const data = this.campanias;
-              const csvContent = "data:text/csv;charset=utf-8," + this.convertArrayToCSV(data);
-              const encodedUri = encodeURI(csvContent);
-              const link = document.createElement("a");
-              link.setAttribute("href", encodedUri);
-              link.setAttribute("download", "campanias.csv");
-              document.body.appendChild(link);
-              link.click();
+            exportToCSV() {
+             try {
+                const data = this.clientes;
+                const csvContent = this.convertArrayToCSV(data);
+                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+                saveAs(blob, "clientes.csv");
+              } catch (error) {
+                console.error("Error al exportar datos a CSV:", error);
+              }
             },
             convertArrayToCSV(data) {
               const header = Object.keys(data[0]).join(",");
