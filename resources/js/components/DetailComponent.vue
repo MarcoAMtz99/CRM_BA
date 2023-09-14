@@ -97,9 +97,6 @@
                          
                         <h1>Clientes de la campaña</h1>
                         <DataTable
-                          v-model:selection="selectedProduct"
-                         :data="tablaData"
-                         @rowSelect="onRowSelect" @rowUnselect="onRowUnselect"
                           class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
@@ -115,20 +112,22 @@
                               </tr>
                           </thead>
                           <tbody>
-                      <tr v-for="item in tablaData" :key="item.id">
-                        <td>{{ item.nombre }}</td>
-                        <td>{{ item.folio }}</td>
-                        <td>{{ item.telefono1 }}</td>
-                        <td>{{ item.telefono2 }}</td>
-                        <td>{{ item.telefono3 }}</td>
-                        <td>
-                          <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania)" class="btn btn-primary">Ver</button>
-                        </td>
-                      </tr>
+                            <tr v-for="item in tablaData" :key="item.id">
+                              <td>{{ item.nombre }}</td>
+                              <td>{{ item.folio }}</td>
+                              <td>{{ item.telefono1 }}</td>
+                              <td>{{ item.telefono2 }}</td>
+                              <td>{{ item.telefono3 }}</td>
+                              <td>
+                                <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania)" class="btn btn-primary">Ver</button>
+                              </td>
+                            </tr>
                     </tbody>
                       </DataTable>
                   
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
+                       :data="tablaData" 
+
                          <bootstrap-table2 :data="tablaData" :columns="columnas"></bootstrap-table2> -->
                       </div>
                       </div>
@@ -161,21 +160,9 @@
 
 <script>
 import DataTable from 'datatables.net-vue3';
-import { ref, onMounted } from 'vue';
 import DataTablesCore from 'datatables.net-bs5';
 // import DataTablesCore from 'datatables.net';
-const selectedProduct = ref();
 
-const onRowSelect = (event) => {
-  alert('Name: ',event.data.nombre );
-    // toast.add({ severity: 'info', summary: 'Product Selected', detail: 'Name: ' + event.data.name, life: 3000 });
-};
-const onRowUnselect = (event) => {
-  alert('Name: ',event.data.nombre );
-
-
-    // toast.add({ severity: 'warn', summary: 'Product Unselected', detail: 'Name: ' + event.data.name, life: 3000 });
-};
 DataTable.use(DataTablesCore);
     export default {
        props: {
