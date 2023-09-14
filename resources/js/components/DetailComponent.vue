@@ -96,7 +96,33 @@
                         <div>
                          
                         <h1>Clientes de la campaña</h1>
-                        <DataTable
+                        <div>
+                          <table id="miTabla" class="display">
+                            <thead>
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Folio</th>
+                                <th>Telefono 1</th>
+                                <th>Telefono 2</th>
+                                <th>Telefono 3</th>
+                                <th>Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(item, index) in tablaData" :key="index">
+                                <td>{{ item.nombre }}</td>
+                                <td>{{ item.folio }}</td>
+                                <td>{{ item.telefono1 }}</td>
+                                <td>{{ item.telefono2 }}</td>
+                                <td>{{ item.telefono3 }}</td>
+                                <td>
+                                  <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania)" class="btn btn-primary">Ver</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      <!--   <DataTable
                           class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
@@ -123,8 +149,10 @@
                               </td>
                             </tr>
                     </tbody>
-                      </DataTable>
-                  
+                      </DataTable> -->
+                  <pre>
+                    {{tablaData}}
+                  </pre>
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
                        :data="tablaData" 
 
