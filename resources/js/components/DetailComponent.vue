@@ -110,6 +110,18 @@
 
                               </tr>
                           </thead>
+                           <template #default="{ row }">
+                              <tr>
+                                <td>{{ row.Nombre }}</td>
+                                <td>{{ row.Folio }}</td>
+                                <td>{{ row['Telefono 1'] }}</td>
+                                <td>{{ row['Telefono 2'] }}</td>
+                                <td>{{ row['Telefono 3'] }}</td>
+                                <td>
+                                  <button @click="mostrarAlert(row.Folio, row.idSucursal, row.idCampania)" class="btn btn-primary">Ver</button>
+                                </td>
+                              </tr>
+                            </template>
                       </DataTable>
                   
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
@@ -186,8 +198,7 @@ DataTable.use(DataTablesCore);
         };
       },
         mounted() {
-            const dataTable = $('#miTabla').DataTable({
-          });
+
             this.idUrl = this.id;
             this.consultarAPI();
         },
