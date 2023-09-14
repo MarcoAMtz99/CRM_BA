@@ -210,7 +210,7 @@ DataTable.use(DataTablesCore);
             const response = await axios.post(apiUrl, {}, { headers });
             this.clientes = response.data.resultado.clientes;
               this.tablaData = this.clientes.map((item) => [
-                  item.nombre+' '+item.apellidoPaterno+' '+apellidoMaterno,
+                  `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`,
                   item.folio,
                   item.telefono1,
                   item.telefono2,
