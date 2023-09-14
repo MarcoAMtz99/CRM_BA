@@ -96,7 +96,11 @@
                         <div>
                          
                         <h1>Clientes de la campaña</h1>
-                        <DataTable :data="tablaData" class="table table-hover table-striped" width="100%">
+                        <DataTable
+                          v-model:selection="selectedProduct"
+                         :data="tablaData"
+                         @rowSelect="onRowSelect" @rowUnselect="onRowUnselect"
+                          class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
                                   <th>Nombre</th>
@@ -110,18 +114,6 @@
 
                               </tr>
                           </thead>
-                           <template #default="{ row }">
-                              <tr>
-                                <td>{{ row.Nombre }}</td>
-                                <td>{{ row.Folio }}</td>
-                                <td>{{ row['Telefono 1'] }}</td>
-                                <td>{{ row['Telefono 2'] }}</td>
-                                <td>{{ row['Telefono 3'] }}</td>
-                                <td>
-                                  <button @click="mostrarAlert(row.Folio, row.idSucursal, row.idCampania)" class="btn btn-primary">Ver</button>
-                                </td>
-                              </tr>
-                            </template>
                       </DataTable>
                   
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
@@ -157,9 +149,21 @@
 
 <script>
 import DataTable from 'datatables.net-vue3';
+import { ref, onMounted } from 'vue';
 import DataTablesCore from 'datatables.net-bs5';
 // import DataTablesCore from 'datatables.net';
+const selectedProduct = ref();
 
+const onRowSelect = (event) => {
+  alert('Name: ',event.data.nombre );
+    // toast.add({ severity: 'info', summary: 'Product Selected', detail: 'Name: ' + event.data.name, life: 3000 });
+};
+const onRowUnselect = (event) => {
+  alert('Name: ',event.data.nombre );
+
+
+    // toast.add({ severity: 'warn', summary: 'Product Unselected', detail: 'Name: ' + event.data.name, life: 3000 });
+};
 DataTable.use(DataTablesCore);
     export default {
        props: {
