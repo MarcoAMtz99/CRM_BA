@@ -195,14 +195,14 @@ DataTable.use(DataTablesCore);
         key: 'acciones',
         formatter: (value, row) => {
           return (
-            <button
+            `<button
               class="btn btn-primary"
-              onClick={() => this.mostrarAlert(row.folio, row.columna5, row.columna6)}
+              onClick={() => this.mostrarAlert('${row.folio}', '${row.idSucursal}', '${row.idCampania}')}
               data-bs-toggle="modal"
               data-bs-target="#myModal"
             >
               Ver
-            </button>
+            </button>`
           );
         },
       },
