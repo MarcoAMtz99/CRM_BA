@@ -150,10 +150,6 @@ import { saveAs } from "file-saver";
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
 
-import VueBootstrapTable2 from 'vue-bootstrap-table2';
-import 'vue-bootstrap-table2/dist/vue-bootstrap-table2.css';
-// import DataTablesCore from 'datatables.net';
-
 DataTable.use(DataTablesCore);
     export default {
        props: {
