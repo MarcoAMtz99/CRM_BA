@@ -9,7 +9,6 @@
 
             $export = Auth::user()->name == 'Admin' ? true:false;
             @endphp 
-            {{ Auth::user()->name }}
             <detail-component :id="{{ $id }}" :user="{{ $export }}"></detail-component>
         </div>
     </div>
