@@ -142,9 +142,9 @@
               <span class="sr-only">Loading...</span>
             </div>
           </div>
-          <div v-else>
-          <a :href="cipherText" target="_blank" class="btn btn-primary" style="width:100%;">Abrir link</a>
-          </div>
+          <a v-else :href="cipherText" target="_blank" class="btn btn-primary" style="width:100%;">Abrir link</a>
+
+         
         </div>
       </div>
     </div>
