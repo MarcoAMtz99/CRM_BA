@@ -60,7 +60,7 @@
                          
                         <h1>Clientes de la campaña</h1>
                         <DataTable
-                         :data="tablaData"  
+                          
                          :options="{language:{
                             decimal:'',
                             emptyTable:'No hay información',
@@ -96,37 +96,21 @@
 
                               </tr>
                           </thead>
+                          <tbody>
+                              <tr v-for="item in tablaData" :key="item.id">
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1]  }}</td>
+                                <td>{{ item[2]  }}</td>
+                                <td>{{ item[3]  }}</td>
+                                <td>{{ item[4]  }}</td>
+                                <td>
+                                  <button @click="mostrarAlert(item[1], item[5], item[6])" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
+                           </td>
+
+                </tr>
+            </tbody>
                       </DataTable>
-                      <div>
-                        <input type="text" v-model="search" class="form-control" />
-    
-                            <table class="table table-striped">
-                              
-                              <thead>
-                                <tr>
-                                  <th v-repeat="column: columns">
-                                    <a href="#" 
-                                       v-on="click: sortBy(column)"
-                                       v-class="active: sortKey == column"
-                                       >
-                                      {{ column | capitalize }}
-                                    </a>
-                                  </th>
-                                </tr>
-                              </thead>
-                              
-                              <tbody>
-                                <tr v-repeat="tablaData
-                                              | filterBy search
-                                              | orderBy sortKey reverse">
-                                  <td>{{ name }}</td>
-                                  <td>{{ age }}</td>
-                                </tr>
-                              </tbody>
-    </table>  
-                    </div>
-
-
+                  
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
                         <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
                                   <i class="fa fa-eye"></i> Ver
@@ -167,6 +151,7 @@ import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
 
 import VueBootstrapTable2 from 'vue-bootstrap-table2';
+import 'vue-bootstrap-table2/dist/vue-bootstrap-table2.css';
 // import DataTablesCore from 'datatables.net';
 
 DataTable.use(DataTablesCore);
@@ -180,9 +165,6 @@ DataTable.use(DataTablesCore);
         data() {
         return {
           clientes: [],
-          sortKey: '',
-          search: '',
-          reverse: false,
           loading: true,
           currentPage: 1,
           itemsPerPage: 100,
@@ -191,58 +173,6 @@ DataTable.use(DataTablesCore);
           cipherText: "", 
           tablaData: [],
           filtro:null,
-          columns: [
-      {
-        title: 'Nombre',
-        field: 'nombre',
-      },
-      {
-        title: 'Folio',
-        field: 'folio',
-      },
-      {
-        title: 'Telefono 1',
-        field: 'telefono1',
-      },
-      {
-        title: 'Telefono 2',
-        field: 'telefono2',
-      },
-      {
-        title: 'Telefono 3',
-        field: 'telefono3',
-      },
-      {
-        title: 'Acciones',
-        key: 'acciones',
-        formatter: (value, row) => {
-          return (
-            `<button
-              class="btn btn-primary"
-              onClick={() => this.mostrarAlert('${row.folio}', '${row.idSucursal}', '${row.idCampania}')}
-              data-bs-toggle="modal"
-              data-bs-target="#myModal"
-            >
-              Ver
-            </button>`
-          );
-        },
-      },
-    ],
-    paginationOptions: {
-      sizePerPageList: [10, 20, 30], // Opciones de cantidad de registros por página
-      sizePerPage: 10, // Cantidad de registros por página predeterminada
-    },
-    searchOptions: {
-      searchField: (text, value) => {
-        // Función personalizada para buscar por folio o números
-        return text.includes(value) || value.includes(text);
-      },
-    },
-
-
-
-
         };
       },
         mounted() {
@@ -343,10 +273,6 @@ DataTable.use(DataTablesCore);
               } catch (error) {
                 console.error("Error al exportar datos a CSV:", error);
               }
-            },
-            sortBy: function(sortKey) {
-              this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
-              this.sortKey = sortKey;
             },
             mostrarAlert( folio, idSucursal, idCampania) {
             console.log(folio,idSucursal,idCampania);
