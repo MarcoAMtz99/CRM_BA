@@ -138,9 +138,11 @@
         <div class="modal-body ">
           <p>Link generado con exito, da click en el boton para visualizar en una nueva ventana la informacion</p>
           <div v-if="linkLoading">
-            <div class="spinner-grow" role="status">
+            <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
               <span class="sr-only">Loading...</span>
             </div>
+          </div>
           </div>
           <a v-else :href="cipherText" target="_blank" class="btn btn-primary" style="width:100%;">Abrir link</a>
 
@@ -257,8 +259,7 @@ DataTable.use(DataTablesCore);
                 this.showModal = true; 
                 this.linkLoading = false;
                 } else {
-                  // this.showModal = true;
-                  // this.errorMessage = "Error en la respuesta";
+                  
                 }
               })
               .catch((error) => {
@@ -283,13 +284,10 @@ DataTable.use(DataTablesCore);
               }
             },
             mostrarAlert( folio, idSucursal, idCampania) {
-            console.log(folio,idSucursal,idCampania);
+           
                 this.linkLoading = true;
 
             // / console.log(item);
-
-            // this.showModal = true;
-            // this.countdown=300;
 
             const Data = {
                 "folio": folio,
