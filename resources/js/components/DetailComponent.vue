@@ -51,7 +51,7 @@
 
                     <div class="card-body">
                        <div>
-                        <button @click="exportToCSV" class="btn btn-primary mb-3" v-if="userName === 'Admin'">Descargar CSV</button>
+                        <button @click="exportToCSV" class="btn btn-primary mb-3" v-if="userName">Descargar CSV</button>
                   
                       </div>
                        <div>
@@ -163,7 +163,7 @@ DataTable.use(DataTablesCore);
     export default {
        props: {
         id: Number,
-        user:String,
+        user:Boolean,
       },
       components: {
     DataTable, 
@@ -184,11 +184,11 @@ DataTable.use(DataTablesCore);
         };
       },
         mounted() {
-            console.log(this.user);
             this.idUrl = this.id;
             this.userName= this.user;
             this.consultarAPI();
-
+            console.log(this.user);
+            
              const primerosDiezElementos = this.tablaData.slice(0, 10);
 
   console.log(primerosDiezElementos);
