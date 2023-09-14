@@ -137,6 +137,14 @@
         </div>
         <div class="modal-body ">
           <p>Link generado con exito, da click en el boton para visualizar en una nueva ventana la informacion</p>
+          <div v-if="linkLoading">
+            <div class="spinner-grow" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div v-else>
+            
+          </div>
           <a :href="cipherText" target="_blank" class="btn btn-primary" style="width:100%;">Abrir link</a>
         </div>
       </div>
@@ -169,6 +177,7 @@ DataTable.use(DataTablesCore);
           cipherText: "", 
           tablaData: [],
           filtro:null,
+          linkLoading:true,
         };
       },
         mounted() {
@@ -247,6 +256,7 @@ DataTable.use(DataTablesCore);
                 if (response.data.status === true) {
                 this.cipherText = response.data.cipherText;
                 this.showModal = true; 
+                this.linkLoading = false;
                 } else {
                   // this.showModal = true;
                   // this.errorMessage = "Error en la respuesta";
@@ -275,6 +285,43 @@ DataTable.use(DataTablesCore);
             },
             mostrarAlert( folio, idSucursal, idCampania) {
             console.log(folio,idSucursal,idCampania);
+                this.linkLoading = true;
+
+            // / console.log(item);
+
+            // this.showModal = true;
+            // this.countdown=300;
+
+            const Data = {
+                "folio": folio,
+                "idCampania":idCampania,
+                "idSucursal":idSucursal,
+            };
+
+
+            axios
+              .post('/generate-link', { Data }) 
+              .then((response) => {
+                  console.log(response.data);
+
+                if (response.data.status === true) {
+                this.cipherText = response.data.cipherText;
+                this.showModal = true; 
+                setTimeout(function(){
+                   this.linkLoading = false;
+
+                    }, 2000);
+
+                } else {
+                  // this.showModal = true;
+                  // this.errorMessage = "Error en la respuesta";
+                }
+              })
+              .catch((error) => {
+                // this.showModal = true;
+                console.log(error);
+                // this.errorMessage = "Error en la solicitud";
+              });
           },
             convertArrayToCSV(data) {
               const header = Object.keys(data[0]).join(",");
