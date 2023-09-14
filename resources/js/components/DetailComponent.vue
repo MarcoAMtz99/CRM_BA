@@ -114,6 +114,18 @@
 
                               </tr>
                           </thead>
+                          <tbody>
+                      <tr v-for="item in tablaData" :key="item.id">
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.folio }}</td>
+                        <td>{{ item.telefono1 }}</td>
+                        <td>{{ item.telefono2 }}</td>
+                        <td>{{ item.telefono3 }}</td>
+                        <td>
+                          <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania)" class="btn btn-primary">Ver</button>
+                        </td>
+                      </tr>
+                    </tbody>
                       </DataTable>
                   
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
