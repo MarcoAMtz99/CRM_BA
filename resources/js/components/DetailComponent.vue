@@ -195,7 +195,7 @@ DataTable.use(DataTablesCore);
                   item.telefono2,
                   item.telefono3,
                   `
-                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
+                  <button @click="$root.mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
                   `,
                 ]);
 
