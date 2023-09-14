@@ -98,13 +98,35 @@
                           </thead>
                       </DataTable>
                       <div>
-                      <vue-bootstrap-table2
-                        :data="tablaData"
-                        :columns="columns"
-                        :pagination-options="paginationOptions"
-                        :search-options="searchOptions"
-                      ></vue-bootstrap-table2>
+                        <input type="text" v-model="search" class="form-control" />
+    
+                            <table class="table table-striped">
+                              
+                              <thead>
+                                <tr>
+                                  <th v-repeat="column: columns">
+                                    <a href="#" 
+                                       v-on="click: sortBy(column)"
+                                       v-class="active: sortKey == column"
+                                       >
+                                      {{ column | capitalize }}
+                                    </a>
+                                  </th>
+                                </tr>
+                              </thead>
+                              
+                              <tbody>
+                                <tr v-repeat="tablaData
+                                              | filterBy search
+                                              | orderBy sortKey reverse">
+                                  <td>{{ name }}</td>
+                                  <td>{{ age }}</td>
+                                </tr>
+                              </tbody>
+    </table>  
                     </div>
+
+
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
                         <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
                                   <i class="fa fa-eye"></i> Ver
@@ -158,6 +180,9 @@ DataTable.use(DataTablesCore);
         data() {
         return {
           clientes: [],
+          sortKey: '',
+          search: '',
+          reverse: false,
           loading: true,
           currentPage: 1,
           itemsPerPage: 100,
@@ -319,6 +344,10 @@ DataTable.use(DataTablesCore);
                 console.error("Error al exportar datos a CSV:", error);
               }
             },
+            sortBy: function(sortKey) {
+              this.reverse = (this.sortKey == sortKey) ? ! this.reverse : false;
+              this.sortKey = sortKey;
+            },
             mostrarAlert( folio, idSucursal, idCampania) {
             console.log(folio,idSucursal,idCampania);
           },
@@ -333,6 +362,4 @@ DataTable.use(DataTablesCore);
 <style>
 @import 'bootstrap';
 @import 'datatables.net-bs5';
-/*@import 'vue-bootstrap-table2/dist/vue-bootstrap-table2.css';*/
-@import 'https://cdn.jsdelivr.net/npm/vue-bootstrap-table2@2.0.7/dist/vue-bootstrap-table2.css';
 </style>
