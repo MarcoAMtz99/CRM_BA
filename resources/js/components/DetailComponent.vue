@@ -4,28 +4,33 @@
           <div>
     <!-- Loader -->
     <div v-if="loading" class="loader">
-      
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
+       <div class="d-flex justify-content-center">
+
+       <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+        
+
       </div>
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
-      </div>
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
-      </div>
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
-      </div>
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
-      </div>
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
-      </div>
-      <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
-        <span class="visually-hidden">Clientes...</span>
-      </div>
+     
 
       <div class="d-flex justify-content-center">
   <!-- <div class="spinner-border" role="status">
