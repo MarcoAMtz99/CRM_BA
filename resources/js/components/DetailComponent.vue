@@ -52,44 +52,7 @@
                     <div class="card-body">
                        <div>
                         <button @click="exportToCSV" class="btn btn-primary mb-3">Descargar CSV</button>
-                       <!--  <div class="mb-3">
-                          <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar por Nombre, Folio o Teléfono">
-                        </div> -->
-                       <!--  <table class="table table-striped table-bordered">
-                          <thead class="thead-dark">
-                            <tr>
-                              <th>Nombre</th>
-                              <th>Folio</th>
-                              <th>Telefono 1</th>
-                              <th>Telefono 2</th>
-                              <th>Telefono 3</th>
-                              <th>Accion</th>
-
-
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(item, index) in paginatedClientes" :key="index">
-                              <td>{{item['nombre']}} {{item['apellidoPaterno']}} {{item['apellidoMaterno']}}</td>
-                              <td>{{item['folio']}}</td>
-                              <td>{{item['telefono1']}}</td>
-                              <td>{{item['telefono2']}}</td>
-                              <td>{{item['telefono3']}}</td>
-
-
-                              <td>
-                                <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
-                                  <i class="fa fa-eye"></i> Ver
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table> -->
-                        <!-- <div class="pagination">
-                        <button @click="prevPage" :disabled="currentPage === 1" class="btn btn-info"> Ant </button>
-                        <span>Página {{ currentPage }}</span>
-                        <button @click="nextPage" :disabled="currentPage * itemsPerPage  >= filteredClientes.length" class="btn btn-info"> Sig </button>
-                      </div> -->
+                  
                       </div>
                        <div>
 
@@ -136,6 +99,9 @@
                       </DataTable>
                   
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
+                        <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
+                                  <i class="fa fa-eye"></i> Ver
+                                </button>
                          <bootstrap-table2 :data="tablaData" :columns="columnas"></bootstrap-table2> -->
                       </div>
                       </div>
@@ -197,6 +163,10 @@ DataTable.use(DataTablesCore);
 
             this.idUrl = this.id;
             this.consultarAPI();
+
+             const primerosDiezElementos = this.tablaData.slice(0, 10);
+
+            console.log(primerosDiezElementos);
         },
         computed: {
          
@@ -225,59 +195,59 @@ DataTable.use(DataTablesCore);
                   item.telefono2,
                   item.telefono3,
                   `
-                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
+                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
                   `,
                 ]);
 
-        this.loading = false;
+              this.loading = false;
 
-          } catch (error) {
-        this.loading = false;
-            
-            console.error('Error en la solicitud:', error);
-          }
-            },
-          viewAction(index) {
-              console.log('Ver detalles de', this.clientes[index]);
-            },
-          sendRequest(item) {
+                } catch (error) {
+              this.loading = false;
+                  
+                  console.error('Error en la solicitud:', error);
+                }
+                  },
+                viewAction(index) {
+                    console.log('Ver detalles de', this.clientes[index]);
+                  },
+                sendRequest(item) {
 
-            // console.log(item);
+                  // console.log(item);
 
-      // this.showModal = true;
-      // this.countdown=300;
-
-      const Data = {
-          "folio": item.folio,
-          "idCampania":item.idCampania,
-          "idSucursal":item.idSucursal,
-      };
-
-
-      axios
-        .post('/generate-link', { Data }) 
-        .then((response) => {
-            console.log(response.data);
-
-          if (response.data.status === true) {
-          this.cipherText = response.data.cipherText;
-          this.showModal = true; 
-          } else {
             // this.showModal = true;
-            // this.errorMessage = "Error en la respuesta";
-          }
-        })
-        .catch((error) => {
-          // this.showModal = true;
-          console.log(error);
-          // this.errorMessage = "Error en la solicitud";
-        });
+            // this.countdown=300;
 
-  
+            const Data = {
+                "folio": item.folio,
+                "idCampania":item.idCampania,
+                "idSucursal":item.idSucursal,
+            };
 
 
+            axios
+              .post('/generate-link', { Data }) 
+              .then((response) => {
+                  console.log(response.data);
 
-    },
+                if (response.data.status === true) {
+                this.cipherText = response.data.cipherText;
+                this.showModal = true; 
+                } else {
+                  // this.showModal = true;
+                  // this.errorMessage = "Error en la respuesta";
+                }
+              })
+              .catch((error) => {
+                // this.showModal = true;
+                console.log(error);
+                // this.errorMessage = "Error en la solicitud";
+              });
+
+        
+
+
+
+          },
             exportToCSV() {
              try {
                 const data = this.clientes;
@@ -290,27 +260,12 @@ DataTable.use(DataTablesCore);
             },
             mostrarAlert( folio, idSucursal, idCampania) {
             console.log(folio,idSucursal,idCampania);
-            // Puedes usar 'nombre', 'folio', 'idSucursal' e 'idCampania' como sea necesario
           },
             convertArrayToCSV(data) {
               const header = Object.keys(data[0]).join(",");
               const rows = data.map(item => Object.values(item).join(","));
               return header + "\n" + rows.join("\n");
             },
-
-             prevPage() {
-              if (this.currentPage > 1) {
-                this.currentPage--;
-              }
-            },
-            nextPage() {
-              const totalPages = Math.ceil(this.filteredClientes.length / this.itemsPerPage);
-              if (this.currentPage < totalPages) {
-                this.currentPage++;
-              }
-            },
-
-
       },
     }
 </script>
