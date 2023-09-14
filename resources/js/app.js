@@ -5,6 +5,7 @@ import { createApp } from 'vue';
 import DataTable from 'datatables.net-vue3'
 import Select from 'datatables.net-select';
 
+
 DataTable.use(Select);
 
 const app = createApp({});

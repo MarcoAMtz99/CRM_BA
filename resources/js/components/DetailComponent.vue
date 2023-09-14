@@ -97,7 +97,14 @@
                               </tr>
                           </thead>
                       </DataTable>
-                  
+                      <div>
+                      <vue-bootstrap-table2
+                        :data="tablaData"
+                        :columns="columns"
+                        :pagination-options="paginationOptions"
+                        :search-options="searchOptions"
+                      ></vue-bootstrap-table2>
+                    </div>
                        <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
                         <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
                                   <i class="fa fa-eye"></i> Ver
@@ -136,6 +143,9 @@
 import { saveAs } from "file-saver";
 import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net-bs5';
+
+import VueBootstrapTable2 from 'vue-bootstrap-table2';
+import 'vue-bootstrap-table2/dist/vue-bootstrap-table2.css';
 // import DataTablesCore from 'datatables.net';
 
 DataTable.use(DataTablesCore);
@@ -157,6 +167,58 @@ DataTable.use(DataTablesCore);
           cipherText: "", 
           tablaData: [],
           filtro:null,
+          columns: [
+      {
+        title: 'Nombre',
+        field: 'nombre',
+      },
+      {
+        title: 'Folio',
+        field: 'folio',
+      },
+      {
+        title: 'Telefono 1',
+        field: 'telefono1',
+      },
+      {
+        title: 'Telefono 2',
+        field: 'telefono2',
+      },
+      {
+        title: 'Telefono 3',
+        field: 'telefono3',
+      },
+      {
+        title: 'Acciones',
+        key: 'acciones',
+        formatter: (value, row) => {
+          return (
+            <button
+              class="btn btn-primary"
+              onClick={() => this.mostrarAlert(row.folio, row.columna5, row.columna6)}
+              data-bs-toggle="modal"
+              data-bs-target="#myModal"
+            >
+              Ver
+            </button>
+          );
+        },
+      },
+    ],
+    paginationOptions: {
+      sizePerPageList: [10, 20, 30], // Opciones de cantidad de registros por página
+      sizePerPage: 10, // Cantidad de registros por página predeterminada
+    },
+    searchOptions: {
+      searchField: (text, value) => {
+        // Función personalizada para buscar por folio o números
+        return text.includes(value) || value.includes(text);
+      },
+    },
+
+
+
+
         };
       },
         mounted() {
@@ -166,7 +228,7 @@ DataTable.use(DataTablesCore);
 
              const primerosDiezElementos = this.tablaData.slice(0, 10);
 
-            console.log(primerosDiezElementos);
+  console.log(primerosDiezElementos);
         },
         computed: {
          
@@ -195,11 +257,8 @@ DataTable.use(DataTablesCore);
                   item.telefono2,
                   item.telefono3,
                   `
-                  <button @click="app.mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
+                  <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
                   `,
-          //         `
-          // <button @click="app.mostrarAlert('{item.folio}', 'item.idSucursal′, ′{item.idCampania}')" class="btn btn-primary">Ver</button>`,
-
                 ]);
 
               this.loading = false;
