@@ -163,6 +163,7 @@ DataTable.use(DataTablesCore);
     export default {
        props: {
         id: Number,
+        employeeNumber:Number,
       },
       components: {
     DataTable, 
@@ -186,7 +187,7 @@ DataTable.use(DataTablesCore);
             this.idUrl = this.id;
             this.userName= this.user;
             this.consultarAPI();
-            // console.log(this.user);
+            console.log("EMPLEADO LOG",this.employeeNumber);
 
              const primerosDiezElementos = this.tablaData.slice(0, 10);
 
@@ -295,6 +296,7 @@ DataTable.use(DataTablesCore);
                 "folio": folio,
                 "idCampania":idCampania,
                 "idSucursal":idSucursal,
+                "numeroEmpleado":this.employeeNumber,
             };
 
 

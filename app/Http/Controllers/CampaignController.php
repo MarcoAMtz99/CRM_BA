@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class CampaignController extends Controller
 {
     public function __construct()
@@ -19,7 +19,8 @@ class CampaignController extends Controller
 
     public function getCampaign(Request $request)
     {
-        return view('admin.detalle',['id'=>$request->id]);
+        $employeeNumber = Auth::user()->employeeNumber->number;
+        return view('admin.detalle',['id'=>$request->id,'employeeNumber'=>$employeeNumber]);
     }
 
 }

@@ -6,10 +6,8 @@
         <div class="col-md-12">
             @php
             $id = request()->route('id');
-
-            $export = Auth::user()->name == 'Admin' ? true:false;
             @endphp 
-            <detail-component :id="{{ $id }}"></detail-component>
+            <detail-component :id="{{ $id }}"  :employeeNumber="{{$employeeNumber}}"></detail-component>
         </div>
     </div>
 </div>

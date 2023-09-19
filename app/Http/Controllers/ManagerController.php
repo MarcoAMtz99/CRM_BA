@@ -34,7 +34,7 @@ class ManagerController extends Controller
             },
             "numeroTelefono": "4878725518",
             "idCampana": ' . $request->Data['idCampania'] . ',
-            "numeroEmpleado": "800046",
+            "numeroEmpleado": '. $request->Data['numeroEmpleado'] .',
             "token": "Cobranza2022",
             "idOrigen": 2,
             "idDespacho": 1,
