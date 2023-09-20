@@ -161,10 +161,7 @@ import DataTablesCore from 'datatables.net-bs5';
 
 DataTable.use(DataTablesCore);
     export default {
-       props: {
-        id: Number,
-        numero:Number,
-      },
+       props: ['id','numero'],
       components: {
     DataTable, 
   },
