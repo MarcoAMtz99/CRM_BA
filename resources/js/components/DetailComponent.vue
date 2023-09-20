@@ -291,7 +291,7 @@ DataTable.use(DataTablesCore);
                 "folio": folio,
                 "idCampania":idCampania,
                 "idSucursal":idSucursal,
-                "numeroEmpleado":this.numeroEmpleado,
+                "numeroEmpleado":this.numeroEmpleado.toString(),
             };
 
 
