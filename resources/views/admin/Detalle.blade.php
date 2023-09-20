@@ -7,7 +7,7 @@
             @php
             $id = request()->route('id');
             @endphp 
-            <h2>{{$employeeNumber}}</h2>
+            <h2>{{$employee}}</h2>
             <detail-component 
             :id="{{ $id }}"
             :numero="{{ $employee }}"></detail-component>
