@@ -20,7 +20,7 @@ class CampaignController extends Controller
     public function getCampaign(Request $request)
     {
         $employee = Auth::user()->employeeNumber->number;
-        return view('admin.detalle',['id'=>$request->id,'employee'=>$employeeNumber]);
+        return view('admin.detalle',['id'=>$request->id,'employee'=>$employee]);
     }
 
 }
