@@ -47,7 +47,7 @@
     <div v-else>
       <div class="col-md-12">
                 <div class="card border-dark mb-3">
-                    <div class="card-header">Campaña detalle <strong>{{idUrl}} </strong></div>
+                    <div class="card-header">Campaña detalle <strong>{{idUrl}} </strong> / Empleado: {{numero}} </div>
 
                     <div class="card-body">
                        <div>
