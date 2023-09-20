@@ -163,7 +163,7 @@ DataTable.use(DataTablesCore);
     export default {
        props: {
         id: Number,
-        employeeNumber:Number,
+        numero:Number,
       },
       components: {
     DataTable, 
@@ -187,7 +187,7 @@ DataTable.use(DataTablesCore);
         mounted() {
             this.idUrl = this.id;
             this.userName= this.user;
-            this.numeroEmpleado = this.employeeNumber;
+            this.numeroEmpleado = this.numero;
             this.consultarAPI();
             console.log("EMPLEADO LOG",this.numeroEmpleado);
 
@@ -292,7 +292,7 @@ DataTable.use(DataTablesCore);
            
                 this.linkLoading = true;
 
-             console.log("numeroEmpleado",this.numeroEmpleado,this.employeeNumber);
+             console.log("numeroEmpleado",this.numeroEmpleado,this.numero);
 
             const Data = {
                 "folio": folio,
