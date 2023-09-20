@@ -187,16 +187,12 @@ DataTable.use(DataTablesCore);
             this.numeroEmpleado = this.numero;
             this.consultarAPI();
             console.log("EMPLEADO LOG",this.numeroEmpleado,this.numero);
-
-             const primerosDiezElementos = this.tablaData.slice(0, 10);
-
-  console.log(primerosDiezElementos);
         },
         computed: {
          
         },
         created() {
-      
+        this.numeroEmpleado = this.numero;
       },
          methods: {
          async consultarAPI() {

@@ -19,8 +19,8 @@ class CampaignController extends Controller
 
     public function getCampaign(Request $request)
     {
-        $employeeNumber = Auth::user()->employeeNumber->number;
-        return view('admin.detalle',['id'=>$request->id,'employeeNumber'=>$employeeNumber]);
+        $employee = Auth::user()->employeeNumber->number;
+        return view('admin.detalle',['id'=>$request->id,'employee'=>$employeeNumber]);
     }
 
 }

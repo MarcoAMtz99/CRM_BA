@@ -8,7 +8,9 @@
             $id = request()->route('id');
             @endphp 
             <h2>{{$employeeNumber}}</h2>
-            <detail-component :id="{{ $id }}"  :employeeNumber="{{$employeeNumber}}"></detail-component>
+            <detail-component 
+            :id="{{ $id }}"
+            :numero="{{ $employee }}"></detail-component>
         </div>
     </div>
 </div>
