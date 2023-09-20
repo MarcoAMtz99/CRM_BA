@@ -37,7 +37,7 @@ class ManagerController extends Controller
             "numeroEmpleado": '. $request->Data['numeroEmpleado'] .',
             "token": "Cobranza2022",
             "idOrigen": 2,
-            "idDespacho": 1,
+            "idDespacho": 17,
             "fecha": "' . Carbon::now()->format('d/m/Y H:i:s') . '"
         }';
 

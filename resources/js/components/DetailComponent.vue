@@ -189,7 +189,7 @@ DataTable.use(DataTablesCore);
             this.userName= this.user;
             this.numeroEmpleado = this.numero;
             this.consultarAPI();
-            console.log("EMPLEADO LOG",this.numeroEmpleado);
+            console.log("EMPLEADO LOG",this.numeroEmpleado,this.numero);
 
              const primerosDiezElementos = this.tablaData.slice(0, 10);
 
