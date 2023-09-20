@@ -55,6 +55,7 @@ class ManagerController extends Controller
             'status' => true,
             'message' => "Link generado con exito!",
             'cipherText' => $safeUrl,
+            'Request'=>$request->Data,
             'Date'=> Carbon::now()->addHour(8)->format('d/m/Y H:i:s')
         ],200);
     
