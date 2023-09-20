@@ -38,7 +38,7 @@ class ManagerController extends Controller
             "token": "Cobranza2022",
             "idOrigen": 2,
             "idDespacho": 15,
-            "fecha": "' . Carbon::now()->format('d/m/Y H:i:s') . '"
+            "fecha": "' . Carbon::now()->addHour(8)->format('d/m/Y H:i:s') . '"
         }';
 
         $key = "192cY7vUQbodWq4q";
