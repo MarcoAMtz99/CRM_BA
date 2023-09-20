@@ -104,7 +104,7 @@
                                 <td>{{ item[3]  }}</td>
                                 <td>{{ item[4]  }}</td>
                                 <td>
-                                  <button @click="mostrarAlert(item[1], item[5], item[6])" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
+                                  <button @click="mostrarAlert(item[1], item[5], item[6], numeroEmpleado)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
                            </td>
 
                 </tr>
@@ -181,13 +181,15 @@ DataTable.use(DataTablesCore);
           filtro:null,
           linkLoading:true,
           userName:'',
+          numeroEmpleado:'',
         };
       },
         mounted() {
             this.idUrl = this.id;
             this.userName= this.user;
+            this.numeroEmpleado = this.employeeNumber;
             this.consultarAPI();
-            console.log("EMPLEADO LOG",this.employeeNumber);
+            console.log("EMPLEADO LOG",this.numeroEmpleado);
 
              const primerosDiezElementos = this.tablaData.slice(0, 10);
 
@@ -286,17 +288,17 @@ DataTable.use(DataTablesCore);
                 console.error("Error al exportar datos a CSV:", error);
               }
             },
-            mostrarAlert( folio, idSucursal, idCampania) {
+            mostrarAlert( folio, idSucursal, idCampania,numeroEmpleado) {
            
                 this.linkLoading = true;
 
-            // / console.log(item);
+             console.log("numeroEmpleado",numeroEmpleado);
 
             const Data = {
                 "folio": folio,
                 "idCampania":idCampania,
                 "idSucursal":idSucursal,
-                "numeroEmpleado":this.employeeNumber,
+                "numeroEmpleado":this.numeroEmpleado,
             };
 
 
