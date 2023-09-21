@@ -104,7 +104,7 @@
                                 <td>{{ item[3]  }}</td>
                                 <td>{{ item[4]  }}</td>
                                 <td>
-                                  <button @click="mostrarAlert(item[1], item[5], item[6],item[2])" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
+                                  <button @click="mostrarAlert(item[1], item[5], item[6],item[2],item[7])" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
                            </td>
 
                 </tr>
@@ -216,6 +216,8 @@ DataTable.use(DataTablesCore);
                   item.telefono3,
                   item.idSucursal,
                   item.idCampania,
+                  item.idCanal,
+
 
                   // `
                   // <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
@@ -281,7 +283,7 @@ DataTable.use(DataTablesCore);
                 console.error("Error al exportar datos a CSV:", error);
               }
             },
-            mostrarAlert( folio, idSucursal, idCampania,telefono1) {
+            mostrarAlert( folio, idSucursal, idCampania,telefono1,canal) {
            
                 this.linkLoading = true;
 
@@ -292,7 +294,8 @@ DataTable.use(DataTablesCore);
                 "idCampania":idCampania,
                 "idSucursal":idSucursal,
                 "numeroEmpleado":this.numeroEmpleado.toString(),
-                "telefono1":telefono1
+                "telefono1":telefono1,
+                "idCanal":canal
             };
 
 

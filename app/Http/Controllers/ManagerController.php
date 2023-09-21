@@ -28,7 +28,7 @@ class ManagerController extends Controller
         $json = '{
         "clienteUnico": {
         "idPais": 1,
-        "idCanal": 1,
+        "idCanal": ' . $request->Data['idCanal'] . ',
         "idSucursal": ' . $request->Data['idSucursal'] . ',
         "folio": "' . $request->Data['folio'] . '"
             },
