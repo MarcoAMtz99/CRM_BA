@@ -32,7 +32,7 @@ class ManagerController extends Controller
         "idSucursal": ' . $request->Data['idSucursal'] . ',
         "folio": "' . $request->Data['folio'] . '"
             },
-            "numeroTelefono": "4878725518",
+            "numeroTelefono": ' . $request->Data['telefono1'] . ',
             "idCampana": ' . $request->Data['idCampania'] . ',
             "numeroEmpleado": '. $request->Data['numeroEmpleado'] .',
             "token": "Cobranza2022",
