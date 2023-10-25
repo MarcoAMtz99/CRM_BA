@@ -23,4 +23,5 @@ class CampaignController extends Controller
         return view('admin.detalle',['id'=>$request->id,'employee'=>$employee]);
     }
 
+
 }
