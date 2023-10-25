@@ -56,7 +56,7 @@ import { saveAs } from "file-saver";
      async consultarAPI() {
           try {
             const idDespacho = 15; 
-            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho=${idDespacho}`;
+            const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v2/consulta-campania?idDespacho=${idDespacho}`;
 
             const headers = {
               'Content-Type': 'application/json',
