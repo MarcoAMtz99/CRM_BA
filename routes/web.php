@@ -22,7 +22,3 @@ Route::post('/generate-link', [App\Http\Controllers\ManagerController::class, 'e
 
 });
 
-
-Route::get('/test', function () {
-    return view('test');
-});
