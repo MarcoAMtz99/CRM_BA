@@ -296,28 +296,68 @@ DataTable.use(DataTablesCore);
              try {
                 // const data = this.clientes;
              const data = this.clientes.map((item) => {
-                  let rowData = {};
+              let rowData = {};
 
-                  for (const key in item) {
-                    if (Array.isArray(item[key])) {
-                      // Si es un array, itera sobre los elementos y agrega sus propiedades con las mismas claves
-                      item[key].forEach((arrayItem, index) => {
-                        for (const arrayItemKey in arrayItem) {
-                          rowData[`${key}_${index}_${arrayItemKey}`] = arrayItem[arrayItemKey];
-                        }
-                      });
-                    } else if (typeof item[key] === 'object') {
-                      // Si es un objeto, itera sobre sus propiedades y agrega sus valores con las mismas claves
-                      for (const subKey in item[key]) {
-                        rowData[subKey] = item[key][subKey];
-                      }
-                    } else {
-                      rowData[key] = item[key];
+              // Itera sobre todas las claves que deben conservarse
+              const keysToKeep = [
+                "idCampania",
+                "idPais",
+                "idCanal",
+                "idSucursal",
+                "folio",
+                "semanasAtraso",
+                "saldo",
+                "saldoCapital",
+                "pagoRequerido",
+                "nombre",
+                "apellidoPaterno",
+                "apellidoMaterno",
+                "diaPago",
+                "diasAtraso",
+                "pagoMinimo",
+                "pagoNoGeneraIntereses",
+                "pagoDisponible",
+                "abonoPuntual",
+                "abonoSemanal",
+                "capacidadPago",
+                "creditoActivo",
+                "fechaProximaPago",
+                "fechaVencimiento",
+                "creditoAutorizado",
+                "tasaInteres",
+                "calle",
+                "numeroInterior",
+                "numeroExterior",
+                "colonia",
+                "codigoPostal",
+              ];
+
+              // Inicializa rowData con las claves
+              keysToKeep.forEach((key) => {
+                rowData[key] = "";
+              });
+
+              // Llena rowData con los valores existentes en el objeto item
+              for (const key in item) {
+                if (Array.isArray(item[key])) {
+                  // Si es un array, itera sobre los elementos y agrega sus propiedades con las mismas claves
+                  item[key].forEach((arrayItem, index) => {
+                    for (const arrayItemKey in arrayItem) {
+                      rowData[`${key}_${index}_${arrayItemKey}`] = arrayItem[arrayItemKey];
                     }
+                  });
+                } else if (typeof item[key] === 'object') {
+                  // Si es un objeto, itera sobre sus propiedades y agrega sus valores con las mismas claves
+                  for (const subKey in item[key]) {
+                    rowData[subKey] = item[key][subKey];
                   }
+                } else {
+                  rowData[key] = item[key];
+                }
+              }
 
-                  return rowData;
-                });
+              return rowData;
+            });
                 const csvContent = this.convertArrayToCSV(data);
                 const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
                 saveAs(blob, "clientes.csv");
