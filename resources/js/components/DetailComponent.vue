@@ -294,7 +294,30 @@ DataTable.use(DataTablesCore);
           },
             exportToCSV() {
              try {
-                const data = this.clientes;
+                // const data = this.clientes;
+              data = this.clientes.map((item) => {
+                let rowData = [];
+
+                for (const key in item) {
+                  if (Array.isArray(item[key])) {
+                    // Si es un array, itera sobre los elementos y agrega sus propiedades
+                    item[key].forEach((arrayItem) => {
+                      for (const arrayItemKey in arrayItem) {
+                        rowData.push(arrayItem[arrayItemKey]);
+                      }
+                    });
+                  } else if (typeof item[key] === 'object') {
+                    // Si es un objeto, itera sobre sus propiedades y agrega sus valores
+                    for (const subKey in item[key]) {
+                      rowData.push(item[key][subKey]);
+                    }
+                  } else {
+                    rowData.push(item[key]);
+                  }
+                }
+
+                return rowData;
+              });
                 const csvContent = this.convertArrayToCSV(data);
                 const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
                 saveAs(blob, "clientes.csv");
