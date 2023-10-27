@@ -209,7 +209,7 @@ DataTable.use(DataTablesCore);
             const response = await axios.post(apiUrl, {}, { headers });
             console.log(response, "Respuesta del servicio");
 
-            this.clientes = response.data.resultado.clientes;
+            this.clientes = response.data.resultado;
             console.log(this.clientes);
               // this.tablaData = this.clientes.map((item) => [
               //     `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`,
