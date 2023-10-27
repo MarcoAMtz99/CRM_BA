@@ -295,7 +295,7 @@ DataTable.use(DataTablesCore);
             exportToCSV() {
              try {
                 // const data = this.clientes;
-              data = this.clientes.map((item) => {
+             const data = this.clientes.map((item) => {
                 let rowData = [];
 
                 for (const key in item) {
