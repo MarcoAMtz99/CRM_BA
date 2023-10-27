@@ -296,28 +296,28 @@ DataTable.use(DataTablesCore);
              try {
                 // const data = this.clientes;
              const data = this.clientes.map((item) => {
-                let rowData = [];
+                  let rowData = {};
 
-                for (const key in item) {
-                  if (Array.isArray(item[key])) {
-                    // Si es un array, itera sobre los elementos y agrega sus propiedades
-                    item[key].forEach((arrayItem) => {
-                      for (const arrayItemKey in arrayItem) {
-                        rowData.push(arrayItem[arrayItemKey]);
+                  for (const key in item) {
+                    if (Array.isArray(item[key])) {
+                      // Si es un array, itera sobre los elementos y agrega sus propiedades con las mismas claves
+                      item[key].forEach((arrayItem, index) => {
+                        for (const arrayItemKey in arrayItem) {
+                          rowData[`${key}_${index}_${arrayItemKey}`] = arrayItem[arrayItemKey];
+                        }
+                      });
+                    } else if (typeof item[key] === 'object') {
+                      // Si es un objeto, itera sobre sus propiedades y agrega sus valores con las mismas claves
+                      for (const subKey in item[key]) {
+                        rowData[subKey] = item[key][subKey];
                       }
-                    });
-                  } else if (typeof item[key] === 'object') {
-                    // Si es un objeto, itera sobre sus propiedades y agrega sus valores
-                    for (const subKey in item[key]) {
-                      rowData.push(item[key][subKey]);
+                    } else {
+                      rowData[key] = item[key];
                     }
-                  } else {
-                    rowData.push(item[key]);
                   }
-                }
 
-                return rowData;
-              });
+                  return rowData;
+                });
                 const csvContent = this.convertArrayToCSV(data);
                 const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
                 saveAs(blob, "clientes.csv");
