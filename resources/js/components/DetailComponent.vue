@@ -207,25 +207,9 @@ DataTable.use(DataTablesCore);
             };
              
             const response = await axios.post(apiUrl, {}, { headers });
-            console.log(response, "Respuesta del servicio");
 
             this.clientes = response.data.resultado;
-            console.log(this.clientes);
-              // this.tablaData = this.clientes.map((item) => [
-              //     `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`,
-              //     item.folio,
-              //     item.telefono1,
-              //     item.telefono2,
-              //     item.telefono3,
-              //     item.idSucursal,
-              //     item.idCampania,
-              //     item.idCanal,
-
-
-              //     // `
-              //     // <button @click="mostrarAlert('${item.folio}', '${item.idSucursal}', '${item.idCampania}')" class="btn btn-primary">Ver</button>
-              //     // `,
-              //   ]);
+  
 
             this.tablaData = this.clientes.map((item) => {
               const nombreCompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`;
@@ -322,7 +306,6 @@ DataTable.use(DataTablesCore);
            
                 this.linkLoading = true;
 
-             console.log("numeroEmpleado",this.numeroEmpleado,this.numero);
 
             const Data = {
                 "folio": folio,
