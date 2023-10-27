@@ -199,7 +199,7 @@ DataTable.use(DataTablesCore);
           try {
             const idDespacho = 15; 
             const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v2/consulta-clientes?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
-            
+
             const headers = {
               'Content-Type': 'application/json',
               'Authorization': 'Basic ' + btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'), 
@@ -207,6 +207,8 @@ DataTable.use(DataTablesCore);
             };
              
             const response = await axios.post(apiUrl, {}, { headers });
+            console.log(response, "Respuesta del servicio");
+
             this.clientes = response.data.resultado.clientes;
             console.log(this.clientes);
               // this.tablaData = this.clientes.map((item) => [
