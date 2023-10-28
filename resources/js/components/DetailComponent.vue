@@ -295,64 +295,77 @@ DataTable.use(DataTablesCore);
             exportToCSV() {
              try {
                 // const data = this.clientes;
-             const data = this.clientes.map((item) => {
-              let rowData = {};
+                const data = this.clientes.map((item) => {
+                let rowData = {
+                  "idCampania": null,
+                  "idPais": null,
+                  "idCanal": null,
+                  "idSucursal": null,
+                  "folio": null,
+                  "semanasAtraso": null,
+                  "saldo": null,
+                  "saldoCapital": null,
+                  "pagoRequerido": null,
+                  "nombre": null,
+                  "apellidoPaterno": null,
+                  "apellidoMaterno": null,
+                  "diaPago": null,
+                  "diasAtraso": null,
+                  "pagoMinimo": null,
+                  "pagoNoGeneraIntereses": null,
+                  "pagoDisponible": null,
+                  "abonoPuntual": null,
+                  "abonoSemanal": null,
+                  "capacidadPago": null,
+                  "creditoActivo": null,
+                  "fechaProximaPago": null,
+                  "fechaVencimiento": null,
+                  "creditoAutorizado": null,
+                  "tasaInteres": null,
+                  "calle": null,
+                  "numeroInterior": null,
+                  "numeroExterior": null,
+                  "colonia": null,
+                  "codigoPostal": null,
+                };
 
-              // Itera sobre todas las claves que deben conservarse
-              const keysToKeep = [
-                "idCampania",
-                "idPais",
-                "idCanal",
-                "idSucursal",
-                "folio",
-                "semanasAtraso",
-                "saldo",
-                "saldoCapital",
-                "pagoRequerido",
-                "nombre",
-                "apellidoPaterno",
-                "apellidoMaterno",
-                "diaPago",
-                "diasAtraso",
-                "pagoMinimo",
-                "pagoNoGeneraIntereses",
-                "pagoDisponible",
-                "abonoPuntual",
-                "abonoSemanal",
-                "capacidadPago",
-                "creditoActivo",
-                "fechaProximaPago",
-                "fechaVencimiento",
-                "creditoAutorizado",
-                "tasaInteres",
-                "calle",
-                "numeroInterior",
-                "numeroExterior",
-                "colonia",
-                "codigoPostal",
-              ];
-
-              // Llena rowData con los valores existentes en el objeto item
-              for (const key of keysToKeep) {
-                if (Array.isArray(item[key])) {
-                  // Si es un array, itera sobre los elementos y agrega sus propiedades con las mismas claves
-                  item[key].forEach((arrayItem, index) => {
-                    for (const arrayItemKey in arrayItem) {
-                      rowData[`${key}_${index}_${arrayItemKey}`] = arrayItem[arrayItemKey];
+                // Llena rowData con los valores existentes en el objeto item
+                for (const key in item) {
+                  if (Array.isArray(item[key])) {
+                    // Si es un array, itera sobre los elementos y agrega sus propiedades con las mismas claves
+                    item[key].forEach((arrayItem, index) => {
+                      for (const arrayItemKey in arrayItem) {
+                        rowData[`${key}_${index}_${arrayItemKey}`] = arrayItem[arrayItemKey];
+                      }
+                    });
+                  } else if (typeof item[key] === 'object') {
+                    // Si es un objeto, itera sobre sus propiedades y agrega sus valores con las mismas claves
+                    for (const subKey in item[key]) {
+                      rowData[subKey] = item[key][subKey];
                     }
-                  });
-                } else if (typeof item[key] === 'object') {
-                  // Si es un objeto, itera sobre sus propiedades y agrega sus valores con las mismas claves
-                  for (const subKey in item[key]) {
-                    rowData[subKey] = item[key][subKey];
+                  } else {
+                    rowData[key] = item[key] || null; // Si la clave no está presente, se agrega como "null"
                   }
-                } else {
-                  rowData[key] = item[key] || ''; // Si la clave no está presente, agrega un valor vacío
                 }
-              }
 
-              return rowData;
-            });
+                // Agregar las columnas de telefonos
+                if (item.telefonos && item.telefonos.length > 0) {
+                  item.telefonos.forEach((telefono, index) => {
+                    rowData[`telefono_${index}_numero`] = telefono.numero;
+                    rowData[`telefono_${index}_tipo`] = telefono.tipo;
+                  });
+                }
+
+                // Agregar las columnas de correos
+                if (item.correos && item.correos.length > 0) {
+                  item.correos.forEach((correo, index) => {
+                    rowData[`correo_${index}`] = correo.correo;
+                  });
+                }
+
+                return rowData;
+              });
+  
                 const csvContent = this.convertArrayToCSV(data);
                 const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
                 saveAs(blob, "clientes.csv");
