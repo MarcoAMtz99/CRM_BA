@@ -332,13 +332,8 @@ DataTable.use(DataTablesCore);
                 "codigoPostal",
               ];
 
-              // Inicializa rowData con las claves
-              keysToKeep.forEach((key) => {
-                rowData[key] = "";
-              });
-
               // Llena rowData con los valores existentes en el objeto item
-              for (const key in item) {
+              for (const key of keysToKeep) {
                 if (Array.isArray(item[key])) {
                   // Si es un array, itera sobre los elementos y agrega sus propiedades con las mismas claves
                   item[key].forEach((arrayItem, index) => {
@@ -352,7 +347,7 @@ DataTable.use(DataTablesCore);
                     rowData[subKey] = item[key][subKey];
                   }
                 } else {
-                  rowData[key] = item[key];
+                  rowData[key] = item[key] || ''; // Si la clave no está presente, agrega un valor vacío
                 }
               }
 
