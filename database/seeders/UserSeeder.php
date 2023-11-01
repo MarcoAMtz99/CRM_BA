@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
          //        'email' => 'admin@cmonit.com',
          //        'password' => Hash::make('Cmonit2023'),
          //    ]);
-        for ($i = 15; $i <= 20; $i++) {
+        for ($i = 16; $i <= 20; $i++) {
             DB::table('users')->insert([
                 'name' => 'Agente ' . $i,
                 'email' => 'agente' . $i . '@cmonit.com',
