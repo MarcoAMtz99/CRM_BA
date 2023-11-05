@@ -13,11 +13,20 @@ class ApiController extends Controller
     public function consultarAPI()
     {
         try {
-            $response = Http::get('https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania', [
-                'idDespacho' => 15,
-            ]);
+            $idDespacho = 15;
+            $url = "https://www.gestioncobranzabaz.com.mx/GestionesCC/v1/consulta-campania?idDespacho={$idDespacho}";
 
+            // Define los encabezados personalizados
+            $headers = [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'),
+                'x-api-key' => 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=',
+            ];
+
+            // Realiza la solicitud HTTP con los encabezados personalizados
+            $response = Http::withHeaders($headers)->get($url);
             $data = $response->json();
+            
             return response()->json(['Data' => $data], 200);
             // return $data;
             // Verifica que se haya obtenido una respuesta válida
