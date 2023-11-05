@@ -24,9 +24,9 @@ class ApiController extends Controller
             ];
 
             // Realiza la solicitud HTTP con los encabezados personalizados
-            $response = Http::withHeaders($headers)->get($url);
+            $response = Http::withHeaders($headers)->post($url);
             $data = $response->json();
-            
+
             return response()->json(['Data' => $data], 200);
             // return $data;
             // Verifica que se haya obtenido una respuesta válida
