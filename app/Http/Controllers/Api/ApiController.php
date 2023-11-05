@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
+use League\Csv\Writer;
 
 class ApiController extends Controller
 {
@@ -39,7 +39,37 @@ class ApiController extends Controller
 
                 $resultados = $this->consultClients($ids);
 
-                return response()->json(['resultados' => $resultados]);
+
+
+               // Crear una instancia del escritor CSV
+                    $csv = Writer::createFromString('');
+
+                    // Establecer la primera fila como encabezados (si es necesario)
+                    $csv->insertOne([
+                        'idCampania', 'idPais', 'idCanal', 'idSucursal', 'folio',
+                        'semanasAtraso', 'saldo', 'saldoCapital', 'pagoRequerido',
+                        'nombre', 'apellidoPaterno', 'apellidoMaterno',
+                        'telefono1', 'telefono2', 'telefono3',
+                        'correo', 'diaPago', 'diasAtraso', 'pagoMinimo',
+                        'pagoNoGeneraIntereses', 'pagoDisponible',
+                        'abonoPuntual', 'abonoSemanal', 'capacidadPago',
+                        'creditoActivo', 'fechaProximaPago', 'fechaVencimiento',
+                        'creditoAutorizado', 'tasaInteres',
+                        'calle', 'numeroInterior', 'numeroExterior', 'colonia', 'codigoPostal'
+                    ]);
+
+                    // Insertar los datos de $resultados en el archivo CSV
+                    foreach ($resultados as $row) {
+                        $csv->insertOne($row);
+                    }
+
+                    // Crear la respuesta HTTP para descargar el archivo CSV
+                    return response($csv->getContent(), 200, [
+                        'Content-Type' => 'text/csv',
+                        'Content-Disposition' => 'attachment; filename="resultados.csv"',
+                    ]);
+
+    
             } else {
                 return response()->json(['error' => 'No se pudo obtener datos de la API'], 500);
             }
@@ -63,12 +93,11 @@ class ApiController extends Controller
             foreach ($idCampanas as $idCampana) {
 
                 $url = "https://www.gestioncobranzabaz.com.mx/GestionesCC/v2/consulta-clientes?idDespacho={$idDespacho}&idCampana={$idCampana}";
-                dd($url);
+
                 $response = Http::withHeaders($headers)->post($url);
-                return response()->json(['RESPONSE CLIENT' => $response], 200);
                 $data = $response->json();
 
-                if ($response->successful() && isset($data['resultado']['clientes']) && is_array($data['resultado']['clientes'])) {
+                if ($response->successful() && isset($data['resultado']) && is_array($data['resultado'])) {
                     foreach ($data['resultado']['clientes'] as $item) {
                         // Limita la lista de teléfonos a tres si es que vienen
                         $telefonos = [];
@@ -98,7 +127,7 @@ class ApiController extends Controller
                             'telefono1' => $telefono1,
                             'telefono2' => $telefono2,
                             'telefono3' => $telefono3,
-                            'correos' => isset($item['correos']) && is_array($item['correos']) ? $item['correos'] : [],
+                            'correo' => isset($item['correos'][0]['correo']) ? $item['correos'][0]['correo'] : null,
                             'diaPago' => $item['diaPago'],
                             'diasAtraso' => $item['diasAtraso'],
                             'pagoMinimo' => $item['pagoMinimo'],
@@ -117,11 +146,10 @@ class ApiController extends Controller
                             'numeroExterior' => $item['numeroExterior'],
                             'colonia' => $item['colonia'],
                             'codigoPostal' => $item['codigoPostal'],
-                            // Agrega otros atributos según sea necesario
                         ];
                     }
                 } else {
-                    // Puedes manejar el error de la solicitud, por ejemplo, registrándolo o tomando alguna otra acción necesaria.
+                   //En caso de que la peticion de no se haya realizado 
                 }
             }
 
