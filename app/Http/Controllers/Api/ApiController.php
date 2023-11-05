@@ -28,7 +28,7 @@ class ApiController extends Controller
             $data = $response->json();
 
             // return response()->json(['Data' => $data], 200);
-            
+
             if ($response->successful()) {
                 $campanias = $data['resultado']['campanias'] ?? [];
 
@@ -61,8 +61,11 @@ class ApiController extends Controller
             ];
 
             foreach ($idCampanas as $idCampana) {
+
                 $url = "https://www.gestioncobranzabaz.com.mx/GestionesCC/v2/consulta-clientes?idDespacho={$idDespacho}&idCampana={$idCampana}";
+                dd($url);
                 $response = Http::withHeaders($headers)->post($url);
+                return response()->json(['RESPONSE CLIENT' => $response], 200);
                 $data = $response->json();
 
                 if ($response->successful() && isset($data['resultado']['clientes']) && is_array($data['resultado']['clientes'])) {
