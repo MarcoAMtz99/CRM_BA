@@ -12,4 +12,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::delete('users/{id}', [UserController::class,'destroy']); 
 Route::put('users/{id}', [UserController::class,'update']); 
-Route::get('/consultar-api', 'ApiController@consultarAPI');
+Route::get('/consultar-api', [ApiController::class,'consultarAPI']);

@@ -18,7 +18,8 @@ class ApiController extends Controller
             ]);
 
             $data = $response->json();
-            return $data;
+            response()->json(['Data' => $data], 200)
+            // return $data;
             // Verifica que se haya obtenido una respuesta válida
             if ($response->successful()) {
                 $campanias = $data['resultado']['campanias'] ?? [];
