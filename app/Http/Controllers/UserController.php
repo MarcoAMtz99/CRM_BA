@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\EmployeeNumber;
+
 
 class UserController extends Controller
 {
@@ -14,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('employeeNumber:id,number,user_id')->get();
+        // dd($users);
         return view('users.index',compact('users'));
 
 
@@ -40,7 +43,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:8',
+            'employee_number_id' => 'required|unique:employee_number,number',
+        ]);
+
+        $user = new User();
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->password = bcrypt($validatedData['password']);
+        $user->save();
+
+        $employeeNumber = new EmployeeNumber();
+        $employeeNumber->number = $validatedData['employee_number_id'];
+        $employeeNumber->user_id = $user->id;
+
+        $employeeNumber->save();
+
+        return redirect()->back()->with('success', 'Se creó el usuario correctamente.');
     }
 
     /**
@@ -63,6 +85,9 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+        return view('users.edit',compact('user'));
+
     }
 
     /**

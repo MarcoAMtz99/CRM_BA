@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ClientController;
+
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -20,6 +24,14 @@ Route::get('/consulta', [App\Http\Controllers\ManagerController::class, 'index']
 Route::post('/generate-link', [App\Http\Controllers\ManagerController::class, 'encryptJson'])->name('link');
 // Users
 Route::resource('users', UserController::class);
+//Importar csv
+Route::post('/import-csv', [ImportController::class, 'importCSV']);
+Route::get('/import-clients', [ImportController::class, 'form'])->name('importClients');
+
+//Clientes 
+Route::get('/local/clients', [ClientController::class, 'getClientsView'])->name('getClientsView');
+
+
 
 });
 

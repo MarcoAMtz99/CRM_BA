@@ -45,7 +45,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
-                                <th>Número empleado</th>
+                                <!-- <th>Número empleado</th> -->
                                 <th>Acciones</th>
 
 
@@ -57,7 +57,7 @@
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
-                                <td>{{ user.employee_number_id }}</td>
+                                <!-- <td>{{ user.employee_number }}</td> -->
                                 <td>
                                   <button @click="editarUsuario(user)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Editar</button>
                                   <button @click="openConfirmDeleteModal(user.id)" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal2">Eliminar</button>
@@ -164,6 +164,7 @@ export default {
         employee_number_id: '',
         password: '',
         confirmPassword: '',
+
       },
     };
   },
@@ -186,7 +187,14 @@ export default {
       
     },
     editarUsuario(user) {
+      let employeeNumber = user.employee_number;
+      let employeeNumberId = employeeNumber.id;
+      let employeeNumberNumber = employeeNumber.number;
+      let employeeNumberUserId = employeeNumber.user_id;
+      console.log(employeeNumberNumber,employeeNumberId);
+
       this.userToEdit = { ...user }; 
+      this.userToEdit.employee_number_id = employeeNumberNumber;
     },
     updateUser() {
       console.log('Datos actualizados:', this.userToEdit);

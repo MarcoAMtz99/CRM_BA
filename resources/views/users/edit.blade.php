@@ -1,52 +1,59 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Update User') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-3">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-5">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                     <x-auth-session-status class="mb-4" :status="session('message')" />
-                    <form action="{{url('edit-user/'.$user->id)}} " method="POST">
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Editar Usuario</div>
+                <div class="card-body">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('success') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @elseif($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('users.update', ['user' => $user->id]) }}">
                         @csrf
                         @method('PUT')
-                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$user->name" required autofocus autocomplete="name" />
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}" required>
                         </div>
 
-                          <div>
-                            <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="$user->email" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
                         </div>
 
-                        <div class="mt-4">
-                        <x-input-label for="password" :value="__('New Password')" />
+                        <div class="form-group">
+                            <label for="password">Contraseña (mínimo 8 caracteres)</label>
+                            <input type="password" class="form-control" id="password" name="password" minlength="8">
+                        </div>
 
-                        <x-text-input id="password" class="block mt-1 w-full"
-                                        type="password"
-                                        name="password"
-                                        placeholder="Escribe una nueva contraseña"
-                                         autocomplete="current-password" />
+                        <div class="form-group">
+                            <label for="employee_number_id">Número de Empleado</label>
+                            <input type="number" class="form-control" id="employee_number_id" name="employee_number_id" value="{{ $user->employeeNumber->number }}" required>
+                        </div>
 
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
-
-                    <div class="flex items-center justify-end mt-4">
-
-                        <x-primary-button class="ml-4">
-                            {{ __('Update user') }}
-                        </x-primary-button>
-                    </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+                        </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+@endsection

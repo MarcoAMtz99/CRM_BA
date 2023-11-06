@@ -14,6 +14,7 @@ class EmployeeNumber extends Model
     protected $fillable = [
         'id',
         'number',
+        'user_id'
     ];
 
      public function user()

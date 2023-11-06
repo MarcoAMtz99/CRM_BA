@@ -7,6 +7,22 @@
             <div class="card">
                 <div class="card-header">Crear Usuario</div>
                 <div class="card-body">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success') }}</strong> 
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @elseif($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
                     <form method="POST" action="{{ route('users.store') }}">
                         @csrf
 

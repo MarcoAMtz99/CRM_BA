@@ -12,6 +12,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> -->
+    <script src="https://kit.fontawesome.com/cdfd63c2c3.js" crossorigin="anonymous"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
@@ -50,23 +54,33 @@
 
                         @else
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('campaign') }}">{{ __('Campañas') }}</a>
+                            <a class="nav-link text-white" href="{{ route('campaign') }}"><i class="fa-regular fa-rectangle-list"></i>{{ __('Campañas') }}</a>
                         </li>
-                      <!--  <li class="nav-item dropdown">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('getClientsView') }}"><i class="fa-solid fa-user-tie"></i>{{ __('Clientes') }}</a>
+                        </li>
+                        @if(Auth::user()->name == "Admin")
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('importClients') }}"><i class="fa-solid fa-upload"></i>{{ __('Carga') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('getClientsToday') }}"><i class="fa-solid fa-download"></i> {{ __('Descarga') }}</a>
+                        </li>
+                       <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             Usuarios
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('users.index') }}">
-                               Listado Usuarios
+                               <i class="fa-solid fa-user-tie"></i> Listado Usuarios
                             </a>
                             <a class="dropdown-item" href="{{ route('users.create') }}">
-                                Crear Usuario
+                               <i class="fa-solid fa-user-plus"></i> Crear Usuario
                             </a>
                          </div>
-                        </li> -->
-                        
+                        </li>
+                        @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -74,7 +88,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <div class="dropdown-item">
-                                       Empleado:  {{Auth::user()->employeeNumber->number}}  
+                                     <i class="fa-regular fa-id-card"></i>   Empleado:  {{Auth::user()->employeeNumber->number}}  
                                     </div>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

@@ -38,8 +38,7 @@ class ApiController extends Controller
                 }, $campanias);
 
                 $resultados = $this->consultClients($ids);
-
-
+                $data = $resultados->getData(true);
 
                // Crear una instancia del escritor CSV
                     $csv = Writer::createFromString('');
@@ -59,14 +58,15 @@ class ApiController extends Controller
                     ]);
 
                     // Insertar los datos de $resultados en el archivo CSV
-                    foreach ($resultados as $row) {
+                    foreach ($data['resultados'] as $row) {
+                  
                         $csv->insertOne($row);
                     }
 
                     // Crear la respuesta HTTP para descargar el archivo CSV
                     return response($csv->getContent(), 200, [
                         'Content-Type' => 'text/csv',
-                        'Content-Disposition' => 'attachment; filename="resultados.csv"',
+                        'Content-Disposition' => 'attachment; filename="clientes.csv"',
                     ]);
 
     
