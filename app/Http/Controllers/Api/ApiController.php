@@ -98,8 +98,7 @@ class ApiController extends Controller
                 $data = $response->json();
 
                 if ($response->successful() && isset($data['resultado']) && is_array($data['resultado'])) {
-                    foreach ($data['resultado']['clientes'] as $item) {
-                        // Limita la lista de teléfonos a tres si es que vienen
+                    foreach ($data['resultado'] as $item) {
                         $telefonos = [];
                         if (isset($item['telefonos']) && is_array($item['telefonos'])) {
                             for ($i = 0; $i < min(count($item['telefonos']), 3); $i++) {
