@@ -64,7 +64,7 @@
                             <a class="nav-link text-white" href="{{ route('importClients') }}"><i class="fa-solid fa-upload"></i>{{ __('Carga') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('getClientsToday') }}"><i class="fa-solid fa-download"></i> {{ __('Descarga') }}</a>
+                            <a class="nav-link text-white" href="{{ route('getClientsCSV') }}"><i class="fa-solid fa-download"></i> {{ __('Descarga') }}</a>
                         </li>
                        <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

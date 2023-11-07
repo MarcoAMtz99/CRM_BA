@@ -14,5 +14,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::delete('users/{id}', [UserController::class,'destroy']); 
 Route::put('users/{id}', [UserController::class,'update']); 
-Route::get('/consultar-api', [ApiController::class,'consultarAPI']);
+Route::get('/consultar-api', [ApiController::class,'consultarAPI'])->name('getClientsCSV');
 Route::get('/clients/today', [ClientController::class,'getClientsToday'])->name('getClientsToday');
