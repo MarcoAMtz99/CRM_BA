@@ -45,7 +45,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
-                                <!-- <th>Número empleado</th> -->
+                                <th>Número empleado</th>
                                 <th>Acciones</th>
 
 
@@ -57,10 +57,11 @@
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.name }}</td>
                                 <td>{{ user.email }}</td>
-                                <!-- <td>{{ user.employee_number }}</td> -->
+                                <td>{{ user.employee_number ? user.employee_number.number : "S/N" }}</td>
                                 <td>
-                                  <button @click="editarUsuario(user)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Editar</button>
-                                  <button @click="openConfirmDeleteModal(user.id)" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal2">Eliminar</button>
+                                    <button @click="editarUsuario(user)" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+                                                          <button @click="openConfirmDeleteModal(user.id)" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#myModal2"> <i class="fa-solid fa-trash"></i> Eliminar</button>
+                                  
 
                                 </td>
 
@@ -129,8 +130,9 @@
          <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
         
               <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" @click="deleteUser">Eliminar</button>
+            <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Cancelar</button>
+            <hr>
+            <button type="button" class="btn btn-danger " @click="deleteUser">Eliminar</button>
           </div>
         </form>
       </div>
@@ -181,10 +183,28 @@ export default {
     },
     deleteUser() {
       if (this.userToDelete) {
-        console.log('Eliminar usuario con ID:', this.userToDelete);
-       
+        const userId = this.userToDelete;
+        
+        axios
+          .delete(`/api/users/${userId}`)
+          .then(response => {
+            console.log('Usuario eliminado:', response.data);
+            // Cerrar el modal
+              window.location.reload();
+            // Restablecer la variable userToEdit a sus valores por defecto
+            // this.userToEdit = {
+            //   id: null,
+            //   name: '',
+            //   email: '',
+            //   employee_number_id: '',
+            //   password: '',
+            //   confirmPassword: '',
+            // };
+          })
+          .catch(error => {
+            console.error('Error al eliminar usuario:', error);
+          });
       }
-      
     },
     editarUsuario(user) {
       let employeeNumber = user.employee_number;
@@ -216,6 +236,16 @@ export default {
       .put(`/api/users/${userId}`, userData)
       .then(response => {
         console.log('Usuario actualizado:', response.data);
+        window.location.reload();
+
+        // this.userToEdit = {
+        //       id: null,
+        //       name: '',
+        //       email: '',
+        //       employee_number_id: '',
+        //       password: '',
+        //       confirmPassword: '',
+        //     };
       })
       .catch(error => {
 

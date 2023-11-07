@@ -105,7 +105,27 @@ class UserController extends Controller
             return response()->json(['message' => 'Usuario no encontrado'], 404);
         }
 
-        $user->update($request->all());
+        $updateData = $request->only(['name', 'email', 'employee_number_id', 'password']);
+        if (!empty($updateData)) {
+            if ($user->employeeNumber->number != $updateData['employee_number_id']) {
+                // 
+                    $employee = EmployeeNumber::where('user_id',$user->id)->first();
+                    $employee->number = $updateData['employee_number_id'];
+                    $employee->save();
+
+            }
+
+            $user->fill($updateData);
+
+            if (isset($updateData['password'])) {
+                $request->validate([
+                    'password' => 'required|string|min:8',
+                ]);
+                $user->password = bcrypt($updateData['password']);
+            }
+
+            $user->save();
+        }
 
         return response()->json(['message' => 'Usuario actualizado', 'data' => $user], 200);
     }
