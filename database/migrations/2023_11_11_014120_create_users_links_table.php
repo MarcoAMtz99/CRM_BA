@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('users_links', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('safeurl', 255); 
+            $table->text('safeurl'); 
             $table->string('idUnico'); 
             $table->timestamps();
         });
