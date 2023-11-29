@@ -87,7 +87,7 @@
                               <tr>
                                   <th>Campaña</th>
                                   <th>Nombre</th>
-                                  <th>Folio</th>
+                                  <th>Id Unico</th>
                                   <th>Telefono 1</th>
                                   <th>Telefono 2</th>
                                   <th>Telefono 3</th>
@@ -101,7 +101,7 @@
                               <tr v-for="item in tablaData" :key="item.id">
                                 <td>{{ item.idCampania  }}</td>
                                 <td>{{ item.nombre}} {{ item.apellidoPaterno}} {{ item.apellidoMaterno}}</td>
-                                <td>{{ item.folio  }}</td>
+                                <td>{{ item.idUnico  }}</td>
                                 <td>{{ item.telefono1  }}</td>
                                 <td>{{ item.telefono2  }}</td>
                                 <td>{{ item.telefono3  }}</td>

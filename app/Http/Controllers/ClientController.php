@@ -17,6 +17,7 @@ class ClientController extends Controller
         $clients = Client::whereDate('created_at', $today)
             ->select(
                 'id',
+                'idUnico',
                 'idCampania',
                 'idPais',
                 'idCanal',
