@@ -27,6 +27,7 @@ class ImportController extends Controller
 
                     if (!empty(array_filter($row))) {
                             $data = [
+                            'idUnico' => $row['idUnico'],
                             'idCampania' => $row['idCampania'],
                             'idPais' => $row['idPais'],
                             'idCanal' => $row['idCanal'],
@@ -42,6 +43,13 @@ class ImportController extends Controller
                             'telefono1' => $row['telefono1'],
                             'telefono2' => $row['telefono2'],
                             'telefono3' => $row['telefono3'],
+                            'telefono4' => $row['telefono4'],
+                            'telefono5' => $row['telefono5'],
+                            'telefono6' => $row['telefono6'],
+                            'telefono7' => $row['telefono7'],
+                            'telefono8' => $row['telefono8'],
+                            'telefono9' => $row['telefono9'],
+                            'telefono10' => $row['telefono10'],
                             'correo' => $row['correo'],
                             'diaPago' => $row['diaPago'],
                             'diasAtraso' => $row['diasAtraso'],
@@ -61,6 +69,7 @@ class ImportController extends Controller
                             'numeroExterior' => DB::connection()->getPdo()->quote($row['numeroExterior']),
                             'colonia' => DB::connection()->getPdo()->quote($row['colonia']),
                             'codigoPostal' => DB::connection()->getPdo()->quote($row['codigoPostal']),
+                            'producto'=>$row['producto']
                         ];
 
                         // Reemplaza los valores vacíos con NULL

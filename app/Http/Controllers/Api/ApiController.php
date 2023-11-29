@@ -43,18 +43,19 @@ class ApiController extends Controller
                // Crear una instancia del escritor CSV
                     $csv = Writer::createFromString('');
 
-                    // Establecer la primera fila como encabezados (si es necesario)
-                    $csv->insertOne([
+                   $csv->insertOne([
                         'idCampania', 'idPais', 'idCanal', 'idSucursal', 'folio',
                         'semanasAtraso', 'saldo', 'saldoCapital', 'pagoRequerido',
                         'nombre', 'apellidoPaterno', 'apellidoMaterno',
-                        'telefono1', 'telefono2', 'telefono3',
+                        'telefono1', 'telefono2', 'telefono3', 'telefono4', 'telefono5',
+                        'telefono6', 'telefono7', 'telefono8', 'telefono9', 'telefono10',
                         'correo', 'diaPago', 'diasAtraso', 'pagoMinimo',
                         'pagoNoGeneraIntereses', 'pagoDisponible',
                         'abonoPuntual', 'abonoSemanal', 'capacidadPago',
                         'creditoActivo', 'fechaProximaPago', 'fechaVencimiento',
                         'creditoAutorizado', 'tasaInteres',
-                        'calle', 'numeroInterior', 'numeroExterior', 'colonia', 'codigoPostal'
+                        'calle', 'numeroInterior', 'numeroExterior', 'colonia', 'codigoPostal',
+                        'idUnico','producto'
                     ]);
 
                     // Insertar los datos de $resultados en el archivo CSV
@@ -101,7 +102,7 @@ class ApiController extends Controller
                     foreach ($data['resultado'] as $item) {
                         $telefonos = [];
                         if (isset($item['telefonos']) && is_array($item['telefonos'])) {
-                            for ($i = 0; $i < min(count($item['telefonos']), 3); $i++) {
+                            for ($i = 0; $i < min(count($item['telefonos']), 10); $i++) {
                                 $telefonos[] = $item['telefonos'][$i]['numero'];
                             }
                         }
@@ -109,6 +110,15 @@ class ApiController extends Controller
                         $telefono1 = isset($telefonos[0]) ? $telefonos[0] : null;
                         $telefono2 = isset($telefonos[1]) ? $telefonos[1] : null;
                         $telefono3 = isset($telefonos[2]) ? $telefonos[2] : null;
+                        $telefono4 = isset($telefonos[3]) ? $telefonos[3] : null;
+                        $telefono5 = isset($telefonos[4]) ? $telefonos[4] : null;
+                        $telefono6 = isset($telefonos[5]) ? $telefonos[5] : null;
+                        $telefono7 = isset($telefonos[6]) ? $telefonos[6] : null;
+                        $telefono8 = isset($telefonos[7]) ? $telefonos[7] : null;
+                        $telefono9 = isset($telefonos[8]) ? $telefonos[8] : null;
+                        $telefono10 = isset($telefonos[9]) ? $telefonos[9] : null;
+
+                        $id_unico = "{$item['idPais']}-{$item['idCanal']}-{$item['idSucursal']}-{$item['folio']}";
 
                         $resultados[] = [
                             'idCampania' => $item['idCampania'],
@@ -126,6 +136,13 @@ class ApiController extends Controller
                             'telefono1' => $telefono1,
                             'telefono2' => $telefono2,
                             'telefono3' => $telefono3,
+                            'telefono4' => $telefono4,
+                            'telefono5' => $telefono5,
+                            'telefono6' => $telefono6,
+                            'telefono7' => $telefono7,
+                            'telefono8' => $telefono8,
+                            'telefono9' => $telefono9,
+                            'telefono10' => $telefono10,
                             'correo' => isset($item['correos'][0]['correo']) ? $item['correos'][0]['correo'] : null,
                             'diaPago' => $item['diaPago'],
                             'diasAtraso' => $item['diasAtraso'],
@@ -145,10 +162,14 @@ class ApiController extends Controller
                             'numeroExterior' => $item['numeroExterior'],
                             'colonia' => $item['colonia'],
                             'codigoPostal' => $item['codigoPostal'],
+                            'idUnico' => $id_unico,
+                            'producto'=>$item['producto']
+
                         ];
                     }
                 } else {
-                   //En caso de que la peticion de no se haya realizado 
+                    // En caso de que la petición no se haya realizado correctamente
+                     // return response()->json(['error' => $e->getMessage()], 500);
                 }
             }
 

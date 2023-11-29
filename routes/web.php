@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ClientController;
 
 
@@ -27,6 +28,9 @@ Route::resource('users', UserController::class);
 //Importar csv
 Route::post('/import-csv', [ImportController::class, 'importCSV']);
 Route::get('/import-clients', [ImportController::class, 'form'])->name('importClients');
+//Exportar csv 
+Route::get('/export-clients', [ExportController::class, 'exportClientsView'])->name('importClientsView');
+Route::post('/export-clients', [ExportController::class, 'exportClients'])->name('exportClients');
 
 //Clientes 
 Route::get('/local/clients', [ClientController::class, 'getClientsView'])->name('getClientsView');

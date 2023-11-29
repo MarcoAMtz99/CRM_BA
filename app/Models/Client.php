@@ -10,6 +10,7 @@ class Client extends Model
    protected $table = 'clients'; 
 
     protected $fillable = [
+        'idUnico',
         'idCampania',
         'idPais',
         'idCanal',
@@ -44,5 +45,7 @@ class Client extends Model
         'numeroExterior',
         'colonia',
         'codigoPostal',
+        'producto',
+
     ];
 }

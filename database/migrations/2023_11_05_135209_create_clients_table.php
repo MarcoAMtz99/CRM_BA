@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
          Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->string('idUnico');
             $table->integer('idCampania');
             $table->integer('idPais');
             $table->integer('idCanal');

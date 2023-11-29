@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\UsersLink;
+use App\Models\EmployeeNumber;
+use App\Models\User;
+
 
 class ManagerController extends Controller
 {
@@ -51,6 +55,16 @@ class ManagerController extends Controller
 
          $cipherTextBase64 = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($cipherText));
          $safeUrl= "https://www.gestioncobranzabaz.com.mx/regional/front-gestiones/index.html#/front-cobranza/credimax/".$cipherTextBase64;
+
+        $id_unico = "1-{$request->Data['idCanal']}-{$request->Data['idSucursal']}-{$request->Data['folio']}";
+        $employee = EmployeeNumber::where('number',$request->Data['numeroEmpleado'])->first();
+        //Log de usuarios por generar link
+        $UsersLink = new UsersLink();
+        $UsersLink->user_id = $employee->user_id;
+        $UsersLink->safeurl = safeUrl;
+        $UsersLink->idUnico = $id_unico;
+        $UsersLink->save();
+
         return response()->json([
             'status' => true,
             'message' => "Link generado con exito!",

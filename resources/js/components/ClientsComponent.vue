@@ -212,62 +212,6 @@ DataTable.use(DataTablesCore);
         this.numeroEmpleado = this.numero;
       },
          methods: {
-         // async consultarAPI() {
-         //  try {
-         //    const idDespacho = 15; 
-         //    const apiUrl = `https://www.gestioncobranzabaz.com.mx/GestionesCC/v2/consulta-clientes?idDespacho=${idDespacho}&idCampana=${this.idUrl}`;
-
-         //    const headers = {
-         //      'Content-Type': 'application/json',
-         //      'Authorization': 'Basic ' + btoa('JeYXUErLkDgWzA9Pp8c2uMOkSppDq9YafWQzXVkv6itpvVrGejXSf:kDF3NFAPwKyPU8JS+Q25nAb0Fn66/RrtlJ3kofnJ8VOcbiraA0nU6w'), 
-         //      'x-api-key': 'SDRgX_Jv8vziBFIQHSCNcCIkc6pmJHlPcDUFl8lWajg=', 
-         //    };
-             
-         //    const response = await axios.post(apiUrl, {}, { headers });
-
-         //    this.clientes = response.data.resultado;
-  
-
-         //    this.tablaData = this.clientes.map((item) => {
-         //      const nombreCompleto = `${item.nombre} ${item.apellidoPaterno} ${item.apellidoMaterno}`;
-
-         //      let telefono1 = "";
-         //      let telefono2 = "";
-         //      let telefono3 = "";
-
-         //      if (item.telefonos && item.telefonos.length > 0) {
-         //        // Asignar hasta 3 números de teléfono
-         //        for (let i = 0; i < Math.min(item.telefonos.length, 3); i++) {
-         //          if (i === 0) {
-         //            telefono1 = item.telefonos[i].numero;
-         //          } else if (i === 1) {
-         //            telefono2 = item.telefonos[i].numero;
-         //          } else if (i === 2) {
-         //            telefono3 = item.telefonos[i].numero;
-         //          }
-         //        }
-         //      }
-
-         //      return [
-         //        nombreCompleto,
-         //        item.folio,
-         //        telefono1,
-         //        telefono2,
-         //        telefono3,
-         //        item.idSucursal,
-         //        item.idCampania,
-         //        item.idCanal
-         //      ];
-         //    });
-
-         //      this.loading = false;
-
-         //        } catch (error) {
-         //      this.loading = false;
-                  
-         //          console.error('Error en la solicitud:', error);
-         //        }
-         //          },
           async consultarAPI() {
                   try {
                     // const idDespacho = 15;

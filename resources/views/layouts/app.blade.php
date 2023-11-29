@@ -54,6 +54,9 @@
 
                         @else
                         <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('importClientsView') }}"><i class="fa-solid fa-magnifying-glass"></i>{{ __('Consulta') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('campaign') }}"><i class="fa-regular fa-rectangle-list"></i>{{ __('Campañas') }}</a>
                         </li>
                         <li class="nav-item">
