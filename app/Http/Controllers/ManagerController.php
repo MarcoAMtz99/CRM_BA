@@ -61,7 +61,7 @@ class ManagerController extends Controller
         //Log de usuarios por generar link
         $UsersLink = new UsersLink();
         $UsersLink->user_id = $employee->user_id;
-        $UsersLink->safeurl = safeUrl;
+        $UsersLink->safeurl = $safeUrl;
         $UsersLink->idUnico = $id_unico;
         $UsersLink->save();
 
