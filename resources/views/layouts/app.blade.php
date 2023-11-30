@@ -92,7 +92,7 @@
                                <i class="fa-solid fa-user-plus"></i> Crear Usuario
                             </a>
 
-                             <a class="dropdown-item" href="{{ route('users.create') }}">
+                             <a class="dropdown-item" href="{{ route('linksHistory') }}">
                                <i class="fa-solid fa-calendar"></i> Historial Links
                             </a>
                          </div>

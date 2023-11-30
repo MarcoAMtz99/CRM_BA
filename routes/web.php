@@ -25,7 +25,7 @@ Route::get('/consulta', [App\Http\Controllers\ManagerController::class, 'index']
 Route::post('/generate-link', [App\Http\Controllers\ManagerController::class, 'encryptJson'])->name('link');
 // Users
 Route::resource('users', UserController::class);
-Route::get('/links-history', [UserController::class, 'usersHistory']);
+Route::get('/links-history', [UserController::class, 'usersHistory'])->name('linksHistory');
 
 //Importar csv
 Route::post('/import-csv', [ImportController::class, 'importCSV']);
