@@ -54,21 +54,31 @@
 
                         @else
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('importClientsView') }}"><i class="fa-solid fa-magnifying-glass"></i>{{ __('Consulta') }}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('campaign') }}"><i class="fa-regular fa-rectangle-list"></i>{{ __('Campañas') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('getClientsView') }}"><i class="fa-solid fa-user-tie"></i>{{ __('Clientes') }}</a>
                         </li>
                         @if(Auth::user()->name == "Admin")
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('importClients') }}"><i class="fa-solid fa-upload"></i>{{ __('Carga') }}</a>
+                      
+                         <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Carga / Descarga
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('getClientsCSV') }}"><i class="fa-solid fa-download"></i> {{ __('Descarga') }}</a>
+
+                            <a class="dropdown-item" href="{{ route('importClients') }}"><i class="fa-solid fa-upload"></i>{{ __('Carga') }}</a>
+
+                             <a class="dropdown-item" href="{{ route('importClientsView') }}"><i class="fa-solid fa-magnifying-glass"></i>{{ __('Consulta') }}</a>
+                         </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('getClientsCSV') }}"><i class="fa-solid fa-download"></i> {{ __('Descarga') }}</a>
-                        </li>
+
+
+
+
+
                        <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             Usuarios
@@ -80,6 +90,10 @@
                             </a>
                             <a class="dropdown-item" href="{{ route('users.create') }}">
                                <i class="fa-solid fa-user-plus"></i> Crear Usuario
+                            </a>
+
+                             <a class="dropdown-item" href="{{ route('users.create') }}">
+                               <i class="fa-solid fa-calendar"></i> Historial Links
                             </a>
                          </div>
                         </li>

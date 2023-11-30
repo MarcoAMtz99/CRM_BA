@@ -19,8 +19,7 @@ import DetailComponent from './components/DetailComponent.vue';
 import UsersComponent from './components/UsersComponent.vue';
 import ClientsComponent from './components/ClientsComponent.vue';
 import ExportComponent from './components/ExportComponent.vue';
-
-
+import HistoryComponent from './components/HistoryComponent.vue';
 
 
 // CARGARLOS EN LA APP
@@ -32,12 +31,7 @@ app.component('detail-component', DetailComponent);
 app.component('users-component', UsersComponent);
 app.component('clients-component', ClientsComponent);
 app.component('export-component', ExportComponent);
-
-
-
-
-
-
+app.component('history-component', HistoryComponent);
 
 
 app.mount('#app');

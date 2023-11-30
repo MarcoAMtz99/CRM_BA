@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="container">
-    <users-component :users="{{ $users }}" :numero="{{ $employee }}></users-component>
+    <users-component :users="{{ $users }}"></users-component>
 </div>
 @endsection

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\EmployeeNumber;
+use App\Models\UsersLink;
+use Carbon\Carbon;
+
 
 
 class UserController extends Controller
@@ -17,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('employeeNumber:id,number,user_id')->get();
-        // dd($users);
+        
         return view('users.index',compact('users'));
 
 
@@ -147,5 +150,31 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'Usuario eliminado'], 200);
+    }
+
+    // public function userHistory($id)
+    // {
+
+    //     $user = User::find($id);
+    //     $Links = $user->userLinks;
+    //     return view('users.history',compact('Links'));
+
+    // }
+
+   public function usersHistory(Request $request)
+    {
+        $currentDate = Carbon::today();
+
+        $usersLinks = UsersLink::whereDate('created_at', $currentDate)->with('user')->get();
+
+        foreach ($usersLinks as $link) {
+            $userName = $link->user->name;
+            $link->setAttribute('user_name', $userName);    
+        }
+
+        $count = $usersLinks->count();
+
+
+        return view('admin.history', compact('usersLinks', 'count'));
     }
 }

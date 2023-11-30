@@ -2,21 +2,86 @@
   <div class="container">
     <div class="row justify-content-center">
       <div>
-        <!-- Contenido de la página -->
-        <div>
-          <div class="col-md-12">
-            <div class="card border-dark mb-3">
-              <div class="card-header">Listado de clientes</div>
+        <div class="form-group mt-3">
+                           <h2 class="title">Consulta por fecha:</h2>
 
-              <div class="card-body">
-                <div>
-                  <!-- <button @click="exportToCSV" class="btn btn-primary mb-3">Descargar CSV</button> -->
-                </div>
-                <div>
-                  <h1>Usuarios</h1>
- 
- 
-                    <DataTable
+                        </div>
+        <!-- Dos inputs de fecha y botón de búsqueda -->
+         <div class="form-group mt-3">
+                            <label for="start_date">Fecha de Inicio</label>
+                                   <input type="date" class="form-control" id="fechaInicio" v-model="fechaInicio" :max="fechaHoy" />
+
+                        </div>
+                        <div class="form-group mt-3">
+                          <label for="fechaFinal">Fecha de final</label>
+              <input type="date" class="form-control" id="fechaFinal" v-model="fechaFinal" :max="fechaHoy" />
+
+      </div>
+      <div class="form-group m-3">
+              <button @click="consultaExport" class="btn btn-primary flex " :disabled="loading">Buscar</button>
+    <button v-if="tablaData.length > 0" @click="exportarCSV" class="btn btn-primary m-1">Exportar</button>
+
+      </div>
+      <div class="form-group m-3">
+                 <!-- Mostrar el botón Exportar cuando hay datos en tablaData -->
+
+      </div>
+
+    
+
+        
+      </div>
+
+      <!-- Loader -->
+      <div v-if="loading" class="loader">   
+          <div class="d-flex justify-content-center">
+
+       <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+            <div class="spinner-grow m-5" style="width: 3rem; height: 3rem;" role="status">
+              <span class="visually-hidden">Clientes...</span>
+            </div>
+        
+
+      </div>
+        <div class="d-flex justify-content-center">
+          <h1 class="justify-content-center ">Cargando clientes entre estas fechas...</h1>
+        </div>
+      </div>
+
+      <!-- Contenido de la página -->
+      <div v-else>
+        <div class="col-md-12">
+                <div class="card border-dark mb-3">
+                    <div class="card-header">Campaña detalle </div>
+
+                    <div class="card-body">
+                       <div>
+                        <!-- <button @click="exportToCSV" class="btn btn-primary mb-3">Descargar CSV</button> -->
+                  
+                      </div>
+                       <div>
+
+                        <div>
+                         
+                        <h1>Clientes de la campaña</h1>
+                        <DataTable
                           
                          :options="{language:{
                             decimal:'',
@@ -37,227 +102,221 @@
                                 next:'Siguiente',
                                 previous:'Anterior'
                             }
-                        }
+                        },
                       }"
                           class="table table-hover table-striped" width="100%">
                           <thead>
                               <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Número empleado</th>
-                                <th>Acciones</th>
+                                  <th>Campaña</th>
+                                  <th>Nombre</th>
+                                  <th>Id Unico</th>
+                                  <th>Telefono 1</th>
+                                  <th>Telefono 2</th>
+                                  <th>Telefono 3</th>
+                                  <th>Acciones</th>
+
 
 
 
                               </tr>
                           </thead>
                           <tbody>
-                              <tr v-for="user in users" :key="user.id">
-                                <td>{{ user.id }}</td>
-                                <td>{{ user.name }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.employee_number ? user.employee_number.number : "S/N" }}</td>
+                              <tr v-for="item in tablaData" :key="item.id">
+                                <td>{{ item.idCampania  }}</td>
+                                <td>{{ item.nombre}} {{ item.apellidoPaterno}} {{ item.apellidoMaterno}}</td>
+                                <td>{{ item.idUnico  }}</td>
+                                <td>{{ item.telefono1  }}</td>
+                                <td>{{ item.telefono2  }}</td>
+                                <td>{{ item.telefono3  }}</td>
                                 <td>
-                                    <button @click="editarUsuario(user)" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-                                                          <button @click="openConfirmDeleteModal(user.id)" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#myModal2"> <i class="fa-solid fa-trash"></i> Eliminar</button>
-                                  
+                                  <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania,item.telefono1 ,item.idCanal )" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
+                           </td>
 
-                                </td>
+                </tr>
+            </tbody>
+             <tfoot>
+             <tr>
+                                  <th>Campaña</th>
+                                  <th>Nombre</th>
+                                  <th>Folio</th>
+                                  <th>Telefono 1</th>
+                                  <th>Telefono 2</th>
+                                  <th>Telefono 3</th>
+                                  <th>Acciones</th>
 
-                        </tr>
-                          </tbody>
+
+
+
+                              </tr>
+        </tfoot>
                       </DataTable>
+                  
+                       <!--  <client-table :data="tablaData" :columns="columnas"></client-table>
+                        <button @click="sendRequest(item)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#myModal">
+                                  <i class="fa fa-eye"></i> Ver
+                                </button>
+                         <bootstrap-table2 :data="tablaData" :columns="columnas"></bootstrap-table2> -->
+                      </div>
+                      </div>
+                    </div>
                 </div>
-              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog ">
+      <div class="modal-content border-dark" style="box-shadow: 10px 5px 5px black;">
+        <div class="modal-header border-dark" >
+          <h5 class="modal-title" id="exampleModalLabel">Consultar folio</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+          <p>Link generado con exito, da click en el boton para visualizar en una nueva ventana la informacion</p>
+          <div v-if="linkLoading">
+            <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
             </div>
           </div>
+          </div>
+          <a v-else :href="cipherText" target="_blank" class="btn btn-primary" style="width:100%;">Abrir link</a>
+
+         
         </div>
       </div>
     </div>
-
-   <!-- Modal de Edición -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content border-dark" style="box-shadow: 10px 5px 5px black;">
-      <div class="modal-header border-dark">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Formulario de Edición -->
-        <form @submit.prevent="updateUser">
-      
-          <div class="mb-1">
-            <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="name" v-model="userToEdit.name">
-          </div>
-          <div class="mb-1">
-            <label for="email" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="email" v-model="userToEdit.email">
-          </div>
-          <div class="mb-1">
-            <label for="employeeNumber" class="form-label">Número de Empleado</label>
-            <input type="text" class="form-control" id="employeeNumber" v-model="userToEdit.employee_number_id">
-          </div>
-          <div class="mb-1">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="password" v-model="userToEdit.password">
-        </div>
-        <div class="mb-1">
-          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
-          <input type="password" class="form-control" id="confirmPassword" v-model="userToEdit.confirmPassword">
-        </div>
-          <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
-        </form>
-      </div>
-    </div>
   </div>
-</div>
 
-
-<!-- Modal de Confirmación de Eliminación -->
-<div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content border-dark" style="box-shadow: 10px 5px 5px black;">
-      <div class="modal-header border-dark">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Formulario de Edición -->
-        <form @submit.prevent="updateUser">
-         <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
-        
-              <div class="modal-footer">
-            <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Cancelar</button>
-            <hr>
-            <button type="button" class="btn btn-danger " @click="deleteUser">Eliminar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-  </div>
 </template>
 
 <script>
+import axios from 'axios';
 import { saveAs } from "file-saver";
-import DataTable from "datatables.net-vue3";
-import DataTablesCore from "datatables.net-bs5";
-
+import DataTable from 'datatables.net-vue3';
+import DataTablesCore from 'datatables.net-bs5';
 DataTable.use(DataTablesCore);
 
 export default {
-  props: ['users'],
+  props: ['id','numero'],
   components: {
-    DataTable,
+    DataTable, 
   },
   data() {
     return {
-      usersLocal: [],
-      userToDelete: null,
-      userToEdit: {
-        id: null,
-        name: '',
-        email: '',
-        employee_number_id: '',
-        password: '',
-        confirmPassword: '',
-
-      },
+      loading: false,
+      fechaInicio: '',
+      fechaFinal: '',
+      fechaHoy: new Date().toISOString().split('T')[0],
+      tablaData: [],
+      loading: false,
+      currentPage: 1,
+      itemsPerPage: 100,
+      searchQuery: "",
+      numeroEmpleado:"",
+      filtro:null,
+      linkLoading:true,
+      cipherText: "", 
+      showModal: false, 
+      filters: {},
     };
   },
-  mounted() {
-    this.usersLocal = this.users;
-    console.log(this.usersLocal)
-  },
+   mounted() {           
+            this.numeroEmpleado = this.numero;
+            console.log("EMPLEADO LOG",this.numeroEmpleado,this.numero);
+        },
   methods: {
-    // ... (otras funciones)
-
-    openConfirmDeleteModal(userId) {
-      this.userToDelete = userId; 
-     
-    },
-    deleteUser() {
-      if (this.userToDelete) {
-        const userId = this.userToDelete;
-        
-        axios
-          .delete(`/api/users/${userId}`)
-          .then(response => {
-            console.log('Usuario eliminado:', response.data);
-            // Cerrar el modal
-              window.location.reload();
-            // Restablecer la variable userToEdit a sus valores por defecto
-            // this.userToEdit = {
-            //   id: null,
-            //   name: '',
-            //   email: '',
-            //   employee_number_id: '',
-            //   password: '',
-            //   confirmPassword: '',
-            // };
-          })
-          .catch(error => {
-            console.error('Error al eliminar usuario:', error);
-          });
-      }
-    },
-    editarUsuario(user) {
-      let employeeNumber = user.employee_number;
-      let employeeNumberId = employeeNumber.id;
-      let employeeNumberNumber = employeeNumber.number;
-      let employeeNumberUserId = employeeNumber.user_id;
-      console.log(employeeNumberNumber,employeeNumberId);
-
-      this.userToEdit = { ...user }; 
-      this.userToEdit.employee_number_id = employeeNumberNumber;
-    },
-    updateUser() {
-      console.log('Datos actualizados:', this.userToEdit);
-      if (this.userToEdit.password !== this.userToEdit.confirmPassword) {
-        alert('Las contraseñas no coinciden');
+    async consultaExport() {
+      if (this.fechaFinal > this.fechaHoy) {
+        console.log('La fecha final no puede ser mayor a hoy');
         return;
       }
 
-    const userId = this.userToEdit.id; 
-    const userData = {
-      name: this.userToEdit.name,
-      email: this.userToEdit.email,
-      employee_number_id: this.userToEdit.employee_number_id,
-      password:this.userToEdit.password,
-      confirmPassword:this.userToEdit.confirmPassword
-    };
+      try {
+        this.loading = true;
+        const apiUrl = '/export-clients'; 
+        const response = await axios.post(apiUrl, {
+          start_date: this.fechaInicio,
+          end_date: this.fechaFinal,
+        });
+        this.tablaData = response.data.clients;
 
-    axios
-      .put(`/api/users/${userId}`, userData)
-      .then(response => {
-        console.log('Usuario actualizado:', response.data);
-        window.location.reload();
-
-        // this.userToEdit = {
-        //       id: null,
-        //       name: '',
-        //       email: '',
-        //       employee_number_id: '',
-        //       password: '',
-        //       confirmPassword: '',
-        //     };
-      })
-      .catch(error => {
-
-        console.error('Error al actualizar usuario:', error);
-      });
-
+         this.loading = false;
+        console.log('Respuesta exitosa:', response.data);
+          this.numeroEmpleado = response.data.employee;
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+        // Manejo de errores
+      } finally {
+        this.loading = false;
+      }
     },
+     exportarCSV() {
+      try {
+        const data = this.tablaData.map((item) => {
+          return item; 
+        });
+
+        const csvContent = this.convertArrayToCSV(data);
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+        saveAs(blob, 'clientes.csv');
+      } catch (error) {
+        console.error('Error al exportar datos a CSV:', error);
+      }
+    },
+    convertArrayToCSV(data) {
+      const header = Object.keys(data[0]).join(",");
+              const rows = data.map(item => Object.values(item).join(","));
+              return header + "\n" + rows.join("\n");
+    },
+
+     mostrarAlert( folio, idSucursal, idCampania,telefono1,canal) {
+           
+                this.linkLoading = true;
+
+                console.log(this.numeroEmpleado);
+            const Data = {
+                "folio": folio,
+                "idCampania":idCampania,
+                "idSucursal":idSucursal,
+                "numeroEmpleado":this.numeroEmpleado.toString(),
+                "telefono1":telefono1,
+                "idCanal":canal
+            };
+
+
+            axios
+              .post('/generate-link', { Data }) 
+              .then((response) => {
+                  console.log(response.data);
+
+                if (response.data.status === true) {
+                this.cipherText = response.data.cipherText;
+                this.showModal = true; 
+                setTimeout(function(){
+                   this.linkLoading = false;
+                   this.showModal = true; 
+                    }, 2000);
+                this.linkLoading = false;
+
+                } else {
+                  
+                }
+              })
+              .catch((error) => {
+                
+                console.log(error);
+               
+              });
+          },
+
   },
 };
 </script>
 
 <style>
-@import 'bootstrap';
-@import 'datatables.net-bs5';
+/* Estilos si los necesitas */
 </style>
