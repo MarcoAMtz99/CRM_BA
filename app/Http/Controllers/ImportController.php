@@ -69,6 +69,7 @@ class ImportController extends Controller
                             'numeroExterior' => DB::connection()->getPdo()->quote($row['numeroExterior']),
                             'colonia' => DB::connection()->getPdo()->quote($row['colonia']),
                             'codigoPostal' => DB::connection()->getPdo()->quote($row['codigoPostal']),
+                            'producto'=>$row['producto'] ?? '',
                         ];
 
                         // Reemplaza los valores vacíos con NULL

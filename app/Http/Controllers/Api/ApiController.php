@@ -55,7 +55,7 @@ class ApiController extends Controller
                         'creditoActivo', 'fechaProximaPago', 'fechaVencimiento',
                         'creditoAutorizado', 'tasaInteres',
                         'calle', 'numeroInterior', 'numeroExterior', 'colonia', 'codigoPostal',
-                        'idUnico'
+                        'idUnico','producto'
                     ]);
 
                     // Insertar los datos de $resultados en el archivo CSV
@@ -163,6 +163,7 @@ class ApiController extends Controller
                             'colonia' => $item['colonia'],
                             'codigoPostal' => $item['codigoPostal'],
                             'idUnico' => $id_unico,
+                            'producto' => $item['producto'] ?? '',
                             
 
                         ];

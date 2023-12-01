@@ -74,6 +74,7 @@ class ExportController extends Controller
                 'colonia',
                 'codigoPostal',
                 'producto',
+                'created_at as fecha_asignacion',
             )
             ->get();
 

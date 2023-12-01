@@ -115,7 +115,7 @@
              <tr>
                                   <th>Campaña</th>
                                   <th>Nombre</th>
-                                  <th>Folio</th>
+                                  <th>Id Unico</th>
                                   <th>Telefono 1</th>
                                   <th>Telefono 2</th>
                                   <th>Telefono 3</th>

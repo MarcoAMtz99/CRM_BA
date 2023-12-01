@@ -113,6 +113,8 @@
                                   <th>Telefono 1</th>
                                   <th>Telefono 2</th>
                                   <th>Telefono 3</th>
+                                  <th>Fecha</th>
+
                                   <th>Acciones</th>
 
 
@@ -128,6 +130,8 @@
                                 <td>{{ item.telefono1  }}</td>
                                 <td>{{ item.telefono2  }}</td>
                                 <td>{{ item.telefono3  }}</td>
+                                <td style="font-size:12px ">{{ formatTime(item.fecha_asignacion) }}</td>
+
                                 <td>
                                   <button @click="mostrarAlert(item.folio, item.idSucursal, item.idCampania,item.telefono1 ,item.idCanal )" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Ver</button>
                            </td>
@@ -138,10 +142,12 @@
              <tr>
                                   <th>Campaña</th>
                                   <th>Nombre</th>
-                                  <th>Folio</th>
+                                  <th>Id Unico</th>
                                   <th>Telefono 1</th>
                                   <th>Telefono 2</th>
                                   <th>Telefono 3</th>
+                                  <th>Fecha</th>
+
                                   <th>Acciones</th>
 
 
@@ -229,6 +235,15 @@ export default {
             console.log("EMPLEADO LOG",this.numeroEmpleado,this.numero);
         },
   methods: {
+    formatTime(datetime) {
+      const date = new Date(datetime);
+      const formattedDate = `${date.getFullYear()}-${this.formatTwoDigits(date.getMonth() + 1)}-${this.formatTwoDigits(date.getDate())}`;
+      const formattedTime = `${this.formatTwoDigits(date.getHours())}:${this.formatTwoDigits(date.getMinutes())}:${this.formatTwoDigits(date.getSeconds())}`;
+      return `${formattedDate}`;
+    },
+    formatTwoDigits(value) {
+      return value < 10 ? `0${value}` : value;
+    },
     async consultaExport() {
       if (this.fechaFinal > this.fechaHoy) {
         console.log('La fecha final no puede ser mayor a hoy');
