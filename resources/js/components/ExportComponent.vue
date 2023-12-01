@@ -218,7 +218,7 @@ export default {
       fechaFinal: '',
       fechaHoy: new Date().toISOString().split('T')[0],
       tablaData: [],
-      loading: false,
+      // loading: false,
       currentPage: 1,
       itemsPerPage: 100,
       searchQuery: "",
@@ -310,10 +310,11 @@ export default {
 
                 if (response.data.status === true) {
                 this.cipherText = response.data.cipherText;
-                this.showModal = true; 
+                this.linkLoading = true;
                 setTimeout(function(){
+                   window.open(response.data.cipherText, '_blank'); // Abre el enlace en una nueva pestaña
+                  this.linkLoading = false;
                    this.linkLoading = false;
-                   this.showModal = true; 
                     }, 2000);
                 this.linkLoading = false;
 
