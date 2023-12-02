@@ -13,6 +13,9 @@ Route::get('/', function () {
 
 Auth::routes(["register" => false]);
 
+Route::get('/test', function () {
+    return view('test');
+});
 
 Route::middleware(['auth'])->group(function () {
   
