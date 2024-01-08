@@ -59,16 +59,21 @@ class ApiController extends Controller
                     ]);
 
                     // Insertar los datos de $resultados en el archivo CSV
-                    foreach ($data['resultados'] as $row) {
+                    if(isset($data['resultados'])){
+                        foreach ($data['resultados'] as $row) {
                   
-                        $csv->insertOne($row);
+                            $csv->insertOne($row);
+                        }
+    
+                        // Crear la respuesta HTTP para descargar el archivo CSV
+                        return response($csv->getContent(), 200, [
+                            'Content-Type' => 'text/csv',
+                            'Content-Disposition' => 'attachment; filename="clientes.csv"',
+                        ]);
+                    }else{
+                        return response()->json(['error' => 'No se pudo obtener datos de la API resultados',
+                    "data"=>$data ], 500);
                     }
-
-                    // Crear la respuesta HTTP para descargar el archivo CSV
-                    return response($csv->getContent(), 200, [
-                        'Content-Type' => 'text/csv',
-                        'Content-Disposition' => 'attachment; filename="clientes.csv"',
-                    ]);
 
     
             } else {
