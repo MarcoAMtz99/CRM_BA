@@ -13,9 +13,10 @@ class ImportController extends Controller
     public function importCSV(Request $request)
     {
             // Valida y sube el archivo CSV
-            $request->validate([
+           /* $request->validate([
                 'csv_file' => 'required|file|mimes:csv,txt',
             ]);
+            */
             $invalidRecords = [];
 
             if ($request->hasFile('csv_file')) {
@@ -96,6 +97,8 @@ class ImportController extends Controller
                 }
 
                  return redirect()->back()->with('success', 'Se importaron ' . $successCount . ' registros exitosamente.')->with('invalidRecords', $invalidRecords);
+            }else{
+                return redirect()->back()->with('success', 'No hay archivo')->with('invalidRecords', $invalidRecords);
             }
         }
 
